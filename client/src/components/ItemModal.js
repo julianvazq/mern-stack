@@ -26,6 +26,7 @@ const ItemModal = (props) => {
         e.preventDefault();
         addItem(name);
         setName("");
+        toggle();
     }
 
     return(
