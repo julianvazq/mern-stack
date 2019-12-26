@@ -1,6 +1,6 @@
 import React from 'react';
-import AppNavBar from "./components/AppNavbar"
-import ShoppingList from "./components/ShoppingList";
+import AppNavBar from './components/AppNavbar';
+import ShoppingList from './components/ShoppingList';
 import ShoppingContextProvider from './contexts/ShoppingContext';
 import ItemModal from './components/ItemModal';
 
@@ -11,13 +11,13 @@ import './App.css';
 function App() {
   return (
     <div>
-    <AppNavBar />
-    <ShoppingContextProvider>
-      <Container>
-        <ItemModal />
-        <ShoppingList/>
-      </Container>
-    </ShoppingContextProvider>
+      <AppNavBar />
+      <ShoppingContextProvider>
+        <Container>
+          <ItemModal />
+          <ShoppingList />
+        </Container>
+      </ShoppingContextProvider>
     </div>
   );
 }
