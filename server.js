@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 const items = require('./routes/api/items');
+const appointments = require('./routes/api/appointments');
 
 const app = express();
 
@@ -19,6 +20,7 @@ mongoose
 
 // Use Routes
 app.use('/api/items', items);
+app.use('/api/appointments', appointments);
 
 const port = process.env.PORT || 5000;
 

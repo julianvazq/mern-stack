@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { ShoppingContext } from '../contexts/ShoppingContext';
+import { DataContext } from '../../contexts/DataContext';
 
 const ShoppingList = () => {
   // Get items from ShoppingContext
-  const { items, deleteItem } = useContext(ShoppingContext);
+  const { items, deleteItem } = useContext(DataContext);
 
   return (
     <Container>
@@ -18,7 +18,7 @@ const ShoppingList = () => {
                   className='remove-btn'
                   color='danger'
                   size='sm'
-                  onClick={() => deleteItem(_id)}
+                  onClick={() => deleteItem(_id, 'items')}
                 >
                   &times;
                 </Button>
