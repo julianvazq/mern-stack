@@ -9,44 +9,56 @@ const DataContextProvider = props => {
   const isLoading = isLoading => {
     setLoading(isLoading);
   };
-  // const [appointments, setAppointments] = useState([
-  //   { name: 'Doctor appointment.', date: 'Jan 01', time: '7:15', _id: uuid() },
-  //   {
-  //     name: 'Meeting with coworkers.',
-  //     date: 'Feb 02',
-  //     time: '10:30',
-  //     _id: uuid()
-  //   },
-  //   { name: 'Massage.', date: 'Mar 03', time: '5:45', _id: uuid() },
-  //   { name: 'Lunch with clients.', date: 'May 04', time: '12:30', _id: uuid() }
-  // ]);
+
   const [appointments, setAppointments] = useState([]);
   const [items, setItems] = useState([]);
 
   // POST request
-  const addItem = (input, model) => {
+  const addItem = async (input, model) => {
     if (model === 'items') {
-      axios.post(`/api/${model}`, { name: input.name });
+      await axios.post(`/api/${model}`, { name: input.name });
+      getNewState(model);
     } else if (model === 'appointments') {
-      axios.post(`/api/${model}`, {
+      await axios.post(`/api/${model}`, {
         name: input.name,
         date: input.date,
         time: input.time
       });
+      getNewState(model);
     }
   };
 
   // DELETE request
-  const deleteItem = (id, model) => {
-    axios.delete(`/api/${model}/${id}`);
+  const deleteItem = async (id, model) => {
+    await axios.delete(`/api/${model}/${id}`);
+    getNewState(model);
+  };
+
+  // Updates state after POST/DELETE outside of useEffect to avoid infinite loop
+  const getNewState = async model => {
+    setLoading(true);
+    try {
+      const res = await axios.get(`/api/${model}`);
+      console.log(`fetched ${model} data`);
+      if (model === 'items') {
+        setItems(res.data);
+      } else if (model === 'appointments') {
+        setAppointments(res.data);
+      }
+      setLoading(false);
+    } catch (e) {
+      console.log(e);
+      setLoading(false);
+    }
   };
 
   // Async/await inside useEffect Hook
   useEffect(() => {
     const fetchItems = async () => {
+      setLoading(true);
       try {
-        setLoading(true);
         const res = await axios.get('/api/items');
+        console.log('fetched shopping data');
         setItems(res.data);
         setLoading(false);
       } catch (e) {
@@ -56,13 +68,14 @@ const DataContextProvider = props => {
     };
 
     fetchItems();
-  }, [items]);
+  }, []);
 
   useEffect(() => {
     const fetchItems = async () => {
+      setLoading(true);
       try {
-        setLoading(true);
         const res = await axios.get('/api/appointments');
+        console.log('fetched appointment data');
         setAppointments(res.data);
         setLoading(false);
       } catch (e) {
@@ -72,11 +85,36 @@ const DataContextProvider = props => {
     };
 
     fetchItems();
-  }, [appointments]);
+  }, []);
+
+  // useEffect(() => {
+  //   setLoading(true);
+  //   try {
+  //     axios
+  //       .get('/api/appointments')
+  //       .then(res => {
+  //         console.log('fetched appointment data');
+  //         return res;
+  //       })
+  //       .then(res => setAppointments(res.data));
+
+  //     setLoading(false);
+  //   } catch (e) {
+  //     console.log(e);
+  //     setLoading(false);
+  //   }
+  // }, []);
 
   return (
     <DataContext.Provider
-      value={{ items, appointments, deleteItem, addItem, loading, isLoading }}
+      value={{
+        items,
+        appointments,
+        deleteItem,
+        addItem,
+        loading,
+        isLoading
+      }}
     >
       {props.children}
     </DataContext.Provider>

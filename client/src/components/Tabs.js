@@ -4,7 +4,7 @@ import ItemModal from './modals/ItemModal';
 import AppointmentList from './lists/AppointmentList';
 import AppointmentModal from './modals/AppointmentModal';
 
-import { Collapse, Button, ButtonGroup, Card, CardBody } from 'reactstrap';
+import { Collapse, Button } from 'reactstrap';
 
 const Tabs = () => {
   const [shoppingIsOpen, setShoppingIsOpen] = useState(false);
