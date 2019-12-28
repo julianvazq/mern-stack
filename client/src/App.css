@@ -2,6 +2,8 @@
   margin-right: 0.5rem;
 }
 
+/* Card item fade in/out */
+
 .fade-enter {
   opacity: 0.01;
 }
@@ -18,4 +20,21 @@
 .fade-exit-active {
   opacity: 0.01;
   transition: opacity 300ms ease-in;
+}
+
+/* Tab content fade in/out */
+
+.tab-pane.active {
+  animation-name: fadeIn;
+  animation-duration: 300ms;
+  animation-timing-function: linear;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

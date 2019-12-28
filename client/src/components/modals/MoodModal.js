@@ -41,15 +41,19 @@ const MoodModal = props => {
         <ModalBody>
           <Form onSubmit={onSubmit}>
             <FormGroup>
-              <Label for='item'>Mood</Label>
-              {/* <Input
-                type='text'
-                name='name'
-                value={name}
-                id='item'
-                placeholder='Add shopping item...'
-                onChange={handleNameChange}
-              /> */}
+              <Label for='mood'>Mood</Label>
+              <Input type='select' name='select' id='mood'>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </Input>
+              <FormGroup />
+              <FormGroup>
+                <Label for='thought'>Thoughts</Label>
+                <Input type='textarea' name='text' id='thought' />
+              </FormGroup>
               <Button color='dark' style={{ marginTop: '2rem' }} block>
                 Add Mood
               </Button>
