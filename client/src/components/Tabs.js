@@ -3,30 +3,32 @@ import ShoppingList from './lists/ShoppingList';
 import ItemModal from './modals/ItemModal';
 import AppointmentList from './lists/AppointmentList';
 import AppointmentModal from './modals/AppointmentModal';
+import MoodList from './lists/AppointmentList';
+import MoodModal from './modals/MoodModal';
 
 import { Collapse, Button } from 'reactstrap';
 
 const Tabs = () => {
-  const [shoppingIsOpen, setShoppingIsOpen] = useState(false);
-  const [appointmentsIsOpen, setAppointmentsIsOpen] = useState(false);
-  const [goalsIsOpen, setGoalsIsOpen] = useState(false);
+  const [isShoppingOpen, setIsShoppingOpen] = useState(false);
+  const [isAppointmentsOpen, setIsAppointmentsOpen] = useState(false);
+  const [isMoodsOpen, setIsMoodsOpen] = useState(false);
 
   const toggleShopping = () => {
     closeAll();
-    setShoppingIsOpen(!shoppingIsOpen);
+    setIsShoppingOpen(!isShoppingOpen);
   };
   const toggleAppointments = () => {
     closeAll();
-    setAppointmentsIsOpen(!appointmentsIsOpen);
+    setIsAppointmentsOpen(!isAppointmentsOpen);
   };
-  const toggleGoals = () => {
+  const toggleMoods = () => {
     closeAll();
-    setGoalsIsOpen(!goalsIsOpen);
+    setIsMoodsOpen(!isMoodsOpen);
   };
   const closeAll = () => {
-    setShoppingIsOpen(false);
-    setAppointmentsIsOpen(false);
-    setGoalsIsOpen(false);
+    setIsShoppingOpen(false);
+    setIsAppointmentsOpen(false);
+    setIsMoodsOpen(false);
   };
 
   return (
@@ -37,18 +39,21 @@ const Tabs = () => {
       <Button onClick={toggleAppointments} style={{ margin: '1rem 0' }}>
         Appointments
       </Button>
-      <Button onClick={toggleGoals} style={{ margin: '1rem 0' }}>
+      <Button onClick={toggleMoods} style={{ margin: '1rem 0' }}>
         Goals
       </Button>
-      <Collapse isOpen={shoppingIsOpen}>
+      <Collapse isOpen={isShoppingOpen}>
         <ItemModal />
         <ShoppingList />
       </Collapse>
-      <Collapse isOpen={appointmentsIsOpen}>
+      <Collapse isOpen={isAppointmentsOpen}>
         <AppointmentModal />
         <AppointmentList />
       </Collapse>
-      <Collapse isOpen={goalsIsOpen}>goal</Collapse>
+      <Collapse isOpen={isMoodsOpen}>
+        <MoodModal />
+        {/* <MoodList /> */}
+      </Collapse>
     </div>
   );
 };
