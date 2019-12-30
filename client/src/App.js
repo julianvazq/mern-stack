@@ -9,25 +9,29 @@ import { Container } from 'reactstrap';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
+import './css/App.css';
+import Footer from './components/Footer';
 
 function App() {
   return (
     <Router>
-      <div>
-        <AppNavBar />
-        <ActiveTabContextProvider>
-          <GroceryContextProvider>
-            <AppointmentsContextProvider>
-              <Container>
-                <Switch>
-                  <Route path='/' exact component={Dashboard} />
-                  <Route path='/tracker' exact component={Tabs} />
-                </Switch>
-              </Container>
-            </AppointmentsContextProvider>
-          </GroceryContextProvider>
-        </ActiveTabContextProvider>
+      <div id='page-container'>
+        <div id='content-wrap'>
+          <AppNavBar />
+          <ActiveTabContextProvider>
+            <GroceryContextProvider>
+              <AppointmentsContextProvider>
+                <Container>
+                  <Switch>
+                    <Route path='/' exact component={Dashboard} />
+                    <Route path='/tracker' exact component={Tabs} />
+                  </Switch>
+                </Container>
+              </AppointmentsContextProvider>
+            </GroceryContextProvider>
+          </ActiveTabContextProvider>
+        </div>
+        <Footer />
       </div>
     </Router>
   );
