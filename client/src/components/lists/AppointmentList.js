@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, Fragment } from 'react';
 import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { AppointmentsContext } from '../../contexts/AppointmentsContext';
 import DelayedSpinner from '../DelayedSpinner';
 import EmptyListMessage from '../EmpyListMessage';
+import AppointmentModal from '../modals/AppointmentModal';
 
 const AppointmentList = () => {
   // Get items from DataContext
@@ -22,32 +23,35 @@ const AppointmentList = () => {
   };
 
   return (
-    <Container>
-      <DelayedSpinner loading={loading} />
-      {appointments.length ? (
-        <ListGroup>
-          <TransitionGroup className='shopping-list'>
-            {appointments.map(({ _id, name, date, time }) => (
-              <CSSTransition key={_id} timeout={500} classNames='fade'>
-                <ListGroupItem>
-                  <Button
-                    className='remove-btn'
-                    color='danger'
-                    size='sm'
-                    onClick={() => deleteAppt(_id)}
-                  >
-                    &times;
-                  </Button>
-                  {conditionalText(name, date, time)}
-                </ListGroupItem>
-              </CSSTransition>
-            ))}
-          </TransitionGroup>
-        </ListGroup>
-      ) : (
-        <EmptyListMessage itemType='appointments' loading={loading} />
-      )}
-    </Container>
+    <Fragment>
+      <AppointmentModal />
+      <Container>
+        <DelayedSpinner loading={loading} />
+        {appointments.length ? (
+          <ListGroup>
+            <TransitionGroup className='shopping-list'>
+              {appointments.map(({ _id, name, date, time }) => (
+                <CSSTransition key={_id} timeout={500} classNames='fade'>
+                  <ListGroupItem>
+                    <Button
+                      className='remove-btn'
+                      color='danger'
+                      size='sm'
+                      onClick={() => deleteAppt(_id)}
+                    >
+                      &times;
+                    </Button>
+                    {conditionalText(name, date, time)}
+                  </ListGroupItem>
+                </CSSTransition>
+              ))}
+            </TransitionGroup>
+          </ListGroup>
+        ) : (
+          <EmptyListMessage itemType='appointments' loading={loading} />
+        )}
+      </Container>
+    </Fragment>
   );
 };
 

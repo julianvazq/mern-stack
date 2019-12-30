@@ -9,10 +9,10 @@ import {
   Label,
   Input
 } from 'reactstrap';
-import { DataContext } from '../../contexts/DataContext';
+import { GroceryContext } from '../../contexts/GroceryContext';
 
 const ItemModal = props => {
-  const { addItem } = useContext(DataContext);
+  const { addItem } = useContext(GroceryContext);
   const [modal, setModal] = useState(false);
   const [name, setName] = useState('');
 
@@ -23,7 +23,7 @@ const ItemModal = props => {
   };
   const onSubmit = e => {
     e.preventDefault();
-    addItem({ name }, 'items');
+    addItem(name);
     setName('');
     toggle();
   };

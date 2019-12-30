@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { NavLink as RRNavLink } from 'react-router-dom';
 import {
   Collapse,
   Navbar,
@@ -19,12 +20,31 @@ const AppNavbar = props => {
     <div>
       <Navbar color='dark' dark expand='sm' className='mb-5'>
         <Container>
-          <NavbarBrand href='/'>LifeTracker</NavbarBrand>
+          <NavbarBrand tag={RRNavLink} to='/'>
+            LifeTracker
+          </NavbarBrand>
           <NavbarToggler onClick={toogle} />
           <Collapse isOpen={isOpen} navbar>
             <Nav className='ml-auto' navbar>
               <NavItem>
-                <NavLink href='https://github.com'>GitHub</NavLink>
+                <NavLink tag={RRNavLink} to='/' exact activeClassName='active'>
+                  Dashboard
+                </NavLink>
+              </NavItem>{' '}
+              <NavItem>
+                <NavLink
+                  tag={RRNavLink}
+                  to='/tracker'
+                  exact
+                  activeClassName='active'
+                >
+                  Tracker
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href='https://github.com/julianvazq/mern-stack'>
+                  GitHub
+                </NavLink>
               </NavItem>
             </Nav>
           </Collapse>

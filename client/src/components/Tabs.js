@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+import { ActiveTabContext } from '../contexts/ActiveTabContext';
 import ShoppingList from './lists/ShoppingList';
-import ItemModal from './modals/ItemModal';
 import AppointmentList from './lists/AppointmentList';
-import AppointmentModal from './modals/AppointmentModal';
 import MoodList from './lists/MoodList';
-import MoodModal from './modals/MoodModal';
 
 import {
   TabContent,
@@ -20,16 +18,7 @@ import {
 import classnames from 'classnames';
 
 const Tabs = () => {
-  const [isShoppingOpen, setIsShoppingOpen] = useState(false);
-  const [isAppointmentsOpen, setIsAppointmentsOpen] = useState(false);
-  const [isMoodsOpen, setIsMoodsOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState('1');
-
-  const toggleTab = tab => {
-    if (activeTab !== tab) {
-      setActiveTab(tab);
-    }
-  };
+  const { activeTab, toggleTab } = useContext(ActiveTabContext);
 
   const style = { marginBottom: '2rem' };
 
@@ -43,7 +32,7 @@ const Tabs = () => {
               toggleTab('1');
             }}
           >
-            Shopping
+            Groceries
           </NavLink>
         </NavItem>
         <NavItem>
@@ -71,7 +60,6 @@ const Tabs = () => {
         <TabPane tabId='1'>
           <Row>
             <Col sm='12'>
-              <ItemModal />
               <ShoppingList />
             </Col>
           </Row>
@@ -80,7 +68,6 @@ const Tabs = () => {
         <TabPane tabId='2'>
           <Row>
             <Col sm='12'>
-              <AppointmentModal />
               <AppointmentList />
             </Col>
           </Row>
@@ -88,9 +75,7 @@ const Tabs = () => {
 
         <TabPane tabId='3'>
           <Row>
-            <Col sm='12'>
-              <MoodModal />
-            </Col>
+            <Col sm='12'></Col>
           </Row>
         </TabPane>
       </TabContent>
