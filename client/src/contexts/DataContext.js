@@ -55,15 +55,10 @@ const DataContextProvider = props => {
   // Async/await inside useEffect Hook
   useEffect(() => {
     const fetchItems = async () => {
-      setLoading(true);
-      try {
-        const res = await axios.get('/api/items');
-        console.log('fetched shopping data');
+      const res = await axiosFetch('/api/items');
+      console.log('fetched shopping data');
+      if (res) {
         setItems(res.data);
-        setLoading(false);
-      } catch (e) {
-        console.log(e);
-        setLoading(false);
       }
     };
 
@@ -72,44 +67,33 @@ const DataContextProvider = props => {
 
   useEffect(() => {
     const fetchItems = async () => {
-      setLoading(true);
-      try {
-        const res = await axios.get('/api/appointments');
-        console.log('fetched appointment data');
+      const res = await axiosFetch('/api/appointments');
+      console.log('fetched appointment data');
+      if (res) {
         setAppointments(res.data);
-        setLoading(false);
-      } catch (e) {
-        console.log(e);
-        setLoading(false);
       }
     };
 
     fetchItems();
   }, []);
 
-  // useEffect(() => {
-  //   setLoading(true);
-  //   try {
-  //     axios
-  //       .get('/api/appointments')
-  //       .then(res => {
-  //         console.log('fetched appointment data');
-  //         return res;
-  //       })
-  //       .then(res => setAppointments(res.data));
-
-  //     setLoading(false);
-  //   } catch (e) {
-  //     console.log(e);
-  //     setLoading(false);
-  //   }
-  // }, []);
+  // Reusable data fetching
+  const axiosFetch = async url => {
+    setLoading(true);
+    try {
+      const res = await axios.get(url);
+      setLoading(false);
+      return res;
+    } catch (e) {
+      console.log(e);
+      setLoading(false);
+    }
+  };
 
   return (
     <DataContext.Provider
       value={{
         items,
-        appointments,
         deleteItem,
         addItem,
         loading,

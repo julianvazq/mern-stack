@@ -9,10 +9,10 @@ import {
   Label,
   Input
 } from 'reactstrap';
-import { DataContext } from '../../contexts/DataContext';
+import { AppointmentsContext } from '../../contexts/AppointmentsContext';
 
 const ItemModal = props => {
-  const { addItem } = useContext(DataContext);
+  const { addAppt } = useContext(AppointmentsContext);
   const [modal, setModal] = useState(false);
   const [name, setName] = useState('');
   const [date, setDate] = useState('');
@@ -36,7 +36,7 @@ const ItemModal = props => {
 
   const onSubmit = e => {
     e.preventDefault();
-    addItem({ name, date, time }, 'appointments');
+    addAppt({ name, date, time });
     setName('');
     toggle();
   };

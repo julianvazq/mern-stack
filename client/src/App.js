@@ -1,6 +1,7 @@
 import React from 'react';
 import AppNavBar from './components/AppNavbar';
 import DataContextProvider from './contexts/DataContext';
+import AppointmentsContextProvider from './contexts/AppointmentsContext';
 import Tabs from './components/Tabs';
 import { Container } from 'reactstrap';
 
@@ -12,9 +13,11 @@ function App() {
     <div>
       <AppNavBar />
       <DataContextProvider>
-        <Container>
-          <Tabs />
-        </Container>
+        <AppointmentsContextProvider>
+          <Container>
+            <Tabs />
+          </Container>
+        </AppointmentsContextProvider>
       </DataContextProvider>
     </div>
   );
