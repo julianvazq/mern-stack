@@ -3,18 +3,16 @@ import { Link } from 'react-router-dom';
 import {
   Alert,
   Button,
+  Badge,
   Card,
-  CardImg,
-  CardTitle,
   CardHeader,
-  CardText,
-  CardSubtitle,
-  CardBody
+  CardBody,
+  CardFooter
 } from 'reactstrap';
 import { ActiveTabContext } from '../../contexts/ActiveTabContext';
 import DelayedSpinner from '../DelayedSpinner';
 
-const CustomCard = ({ title, imgPath, loading, count }) => {
+const CustomCard = ({ title, imgPath, isLoading, count }) => {
   const { toggleTab } = useContext(ActiveTabContext);
 
   const titleLowerCase = title.toLowerCase();
@@ -41,19 +39,28 @@ const CustomCard = ({ title, imgPath, loading, count }) => {
       >
         {title}
       </CardHeader>
-      {/* <CardBody><CardSubtitle>Card subtitle</CardSubtitle></CardBody> */}
       <img width='100%' src={imgPath} alt='Card image cap' />
       <CardBody>
-        <Alert color='success'>
-          Currently{' '}
-          <span style={{ fontWeight: 'bold' }}>{count > 0 ? count : 'no'}</span>{' '}
-          {titleLowerCase === 'groceries' && count === 1
-            ? 'grocery'
-            : count === 1
-            ? titleLowerCase.slice(0, -1)
-            : titleLowerCase}{' '}
-          in your list.
-        </Alert>
+        {isLoading ? (
+          <Alert color='success' style={{ textAlign: 'center' }}>
+            <DelayedSpinner size='small' />
+          </Alert>
+        ) : (
+          <Alert color='success'>
+            <Badge
+              color='success'
+              style={{ fontSize: '1rem', marginRight: '0.5rem' }}
+            >
+              {count}
+            </Badge>{' '}
+            {titleLowerCase === 'groceries' && count === 1
+              ? 'grocery'
+              : count === 1
+              ? titleLowerCase.slice(0, -1)
+              : titleLowerCase}{' '}
+            on your list
+          </Alert>
+        )}
         <Button
           onClick={handleClick}
           tag={Link}

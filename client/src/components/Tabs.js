@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
 import { ActiveTabContext } from '../contexts/ActiveTabContext';
-import ShoppingList from './lists/ShoppingList';
+import GroceryList from './lists/GroceryList';
 import AppointmentList from './lists/AppointmentList';
 import MoodList from './lists/MoodList';
 
 import {
   TabContent,
   TabPane,
+  Container,
   Nav,
   NavItem,
   NavLink,
@@ -20,11 +21,16 @@ import classnames from 'classnames';
 const Tabs = () => {
   const { activeTab, toggleTab } = useContext(ActiveTabContext);
 
-  const style = { marginBottom: '2rem' };
-
   return (
-    <div>
-      <Nav tabs style={style}>
+    <Container
+      style={{
+        padding: '1.5em',
+        backgroundColor: '#fdfdfd',
+        borderRadius: '0.25rem',
+        marginBottom: '3em'
+      }}
+    >
+      <Nav tabs style={{ marginBottom: '1.5rem' }}>
         <NavItem>
           <NavLink
             className={classnames({ active: activeTab === '1' })}
@@ -60,7 +66,7 @@ const Tabs = () => {
         <TabPane tabId='1'>
           <Row>
             <Col sm='12'>
-              <ShoppingList />
+              <GroceryList />
             </Col>
           </Row>
         </TabPane>
@@ -75,11 +81,13 @@ const Tabs = () => {
 
         <TabPane tabId='3'>
           <Row>
-            <Col sm='12'></Col>
+            <Col sm='12'>
+              <MoodList />{' '}
+            </Col>
           </Row>
         </TabPane>
       </TabContent>
-    </div>
+    </Container>
   );
 };
 

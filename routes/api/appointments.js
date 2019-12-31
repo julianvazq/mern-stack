@@ -7,8 +7,8 @@ const Appointment = require('../../models/Appointment');
 //@route GET api/appointments
 //@desc Get All Items
 router.get('/', (req, res) => {
-  Item.find()
-    .sort({ date: -1 })
+  Appointment.find()
+    // .sort({ date: -1 })
     .then(appointments => res.json(appointments));
 });
 
@@ -27,7 +27,7 @@ router.post('/', (req, res) => {
 //@route DELETE api/appointments/:id
 //@desc Delete An Appointment
 router.delete('/:id', (req, res) => {
-  Item.findById(req.params.id)
+  Appointment.findById(req.params.id)
     .then(appointment =>
       appointment.remove().then(() => res.json({ success: true }))
     )

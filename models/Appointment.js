@@ -18,4 +18,4 @@ const AppointmentSchema = new Schema({
 });
 
 // Compile and export schema
-module.exports = Item = mongoose.model('appointment', AppointmentSchema);
+module.exports = Appointment = mongoose.model('appointment', AppointmentSchema);

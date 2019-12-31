@@ -5,6 +5,7 @@ import {
   ModalHeader,
   ModalBody,
   Form,
+  FormText,
   FormGroup,
   Label,
   Input
@@ -52,37 +53,42 @@ const ItemModal = props => {
         <ModalBody>
           <Form onSubmit={onSubmit}>
             <FormGroup>
-              <Label for='appointment'>Item</Label>
+              <Label for='name'>Appointment</Label>
               <Input
                 type='text'
                 name='name'
                 value={name}
-                id='appointment'
+                id='name'
                 placeholder='Appointment name...'
                 onChange={handleName}
               />
-              <Label for='appointment'>Date</Label>
+              <FormText>Required</FormText>
+            </FormGroup>
+            <FormGroup>
+              <Label for='dateInput'>Date</Label>
               <Input
-                type='text'
+                type='date'
                 name='date'
                 value={date}
-                id='appointment'
-                placeholder='Date...'
+                id='dateInput'
+                placeholder='date placeholder'
                 onChange={handleDate}
               />
-              <Label for='appointment'>Time</Label>
+            </FormGroup>
+            <FormGroup>
+              <Label for='timeInput'>Time</Label>
               <Input
-                type='text'
+                type='time'
                 name='time'
                 value={time}
-                id='appointment'
-                placeholder='Time...'
+                id='timeInput'
+                placeholder='time placeholder'
                 onChange={handleTime}
               />
-              <Button color='dark' style={{ marginTop: '2rem' }} block>
-                Add Appointment
-              </Button>
             </FormGroup>
+            <Button color='dark' style={{ marginTop: '2rem' }} block>
+              Add Appointment
+            </Button>
           </Form>
         </ModalBody>
       </Modal>

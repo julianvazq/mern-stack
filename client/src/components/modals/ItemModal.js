@@ -5,6 +5,7 @@ import {
   ModalHeader,
   ModalBody,
   Form,
+  FormText,
   FormGroup,
   Label,
   Input
@@ -15,6 +16,7 @@ const ItemModal = props => {
   const { addItem } = useContext(GroceryContext);
   const [modal, setModal] = useState(false);
   const [name, setName] = useState('');
+  const [quantity, setQuantity] = useState(1);
 
   const toggle = () => setModal(!modal);
   const handleNameChange = e => {
@@ -23,8 +25,9 @@ const ItemModal = props => {
   };
   const onSubmit = e => {
     e.preventDefault();
-    addItem(name);
+    addItem({ name, quantity });
     setName('');
+    setQuantity(1);
     toggle();
   };
 
@@ -39,15 +42,38 @@ const ItemModal = props => {
         <ModalBody>
           <Form onSubmit={onSubmit}>
             <FormGroup>
-              <Label for='item'>Item</Label>
-              <Input
-                type='text'
-                name='name'
-                value={name}
-                id='item'
-                placeholder='Add shopping item...'
-                onChange={handleNameChange}
-              />
+              <FormGroup>
+                <Label for='item'>Item</Label>
+                <Input
+                  type='text'
+                  name='name'
+                  value={name}
+                  id='item'
+                  placeholder='Add shopping item...'
+                  onChange={handleNameChange}
+                />
+                <FormText>Required</FormText>
+              </FormGroup>
+              <FormGroup>
+                <Label for='exampleSelect'>Quantity</Label>
+                <Input
+                  type='select'
+                  name='quantity'
+                  id='quantityInput'
+                  onChange={e => setQuantity(e.target.value)}
+                >
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                  <option>7</option>
+                  <option>8</option>
+                  <option>9</option>
+                  <option>10</option>
+                </Input>
+              </FormGroup>
               <Button color='dark' style={{ marginTop: '2rem' }} block>
                 Add Item
               </Button>

@@ -16,7 +16,8 @@ router.get('/', (req, res) => {
 //@desc Create An Item
 router.post('/', (req, res) => {
   const newItem = new Item({
-    name: req.body.name
+    name: req.body.name,
+    quantity: req.body.quantity
   });
 
   newItem.save().then(item => res.json(item));

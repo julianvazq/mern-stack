@@ -1,46 +1,44 @@
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
+import useDataHandler from '../components/customHooks/useDataHandler';
 
 export const AppointmentsContext = createContext();
 
 const AppointmentsContextProvider = props => {
-  const [loading, setLoading] = useState(false);
   const [appointments, setAppointments] = useState([]);
-
-  // GET request
-  const getAppts = async () => {
-    setLoading(true);
-    try {
-      const res = await axios.get('/api/appointments');
-      if (res) {
-        setAppointments(res.data);
-      }
-      setLoading(false);
-    } catch (e) {
-      console.log(e);
-      setLoading(false);
-    }
-  };
+  const [isLoading, setIsLoading] = useState(false);
+  const [response, error] = useDataHandler('/api/appointments');
 
   // POST request
   const addAppt = async input => {
-    await axios.post('/api/appointments', {
+    const res = await axios.post('/api/appointments', {
       name: input.name,
       date: input.date,
       time: input.time
     });
-    getAppts();
+    // Use post response to set new state
+    setAppointments(() => {
+      const { _id, name, date, time } = res.data; // Set inside function to avoid "Identifier 'name' has already been declared"
+      return [...appointments, { _id, name, date, time }];
+    });
   };
 
   // DELETE request
   const deleteAppt = async id => {
     await axios.delete(`/api/appointments/${id}`);
-    getAppts();
+    setAppointments(appointments.filter(appt => appt._id !== id));
   };
 
   useEffect(() => {
-    getAppts();
-  }, []);
+    if (error) {
+      setIsLoading(false);
+    } else if (!response) {
+      setIsLoading(true);
+    } else {
+      setAppointments(response);
+      setIsLoading(false);
+    }
+  }, [response, error]);
 
   return (
     <AppointmentsContext.Provider
@@ -48,7 +46,8 @@ const AppointmentsContextProvider = props => {
         appointments,
         deleteAppt,
         addAppt,
-        loading
+        isLoading,
+        error
       }}
     >
       {props.children}

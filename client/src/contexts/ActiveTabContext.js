@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 
 export const ActiveTabContext = createContext();
 
@@ -9,7 +9,13 @@ const ActiveTabContextProvider = props => {
     if (activeTab !== tab) {
       setActiveTab(tab);
     }
+    localStorage.setItem('activeTab', tab);
   };
+
+  useEffect(() => {
+    const storedActiveTab = localStorage.getItem('activeTab');
+    setActiveTab(storedActiveTab);
+  }, []);
 
   return (
     <ActiveTabContext.Provider

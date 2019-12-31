@@ -1,5 +1,12 @@
 import React, { useContext, Fragment } from 'react';
-import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
+import {
+  Container,
+  ListGroup,
+  ListGroupItem,
+  Button,
+  Alert,
+  Badge
+} from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { AppointmentsContext } from '../../contexts/AppointmentsContext';
 import DelayedSpinner from '../DelayedSpinner';
@@ -8,50 +15,54 @@ import AppointmentModal from '../modals/AppointmentModal';
 
 const AppointmentList = () => {
   // Get items from DataContext
-  const { appointments, deleteAppt, loading } = useContext(AppointmentsContext);
+  const { appointments, deleteAppt, isLoading, error } = useContext(
+    AppointmentsContext
+  );
 
-  const conditionalText = (name, date, time) => {
+  const conditionalRendering = (date, time) => {
     if (date && time) {
-      return `${date} (${time}) - ${name}`;
+      return `${date} at ${time}`;
     } else if (date) {
-      return `${date} - ${name}`;
-    } else if (time) {
-      return `${time} - ${name}`;
+      return `${date}`;
     } else {
-      return `${name}`;
+      return `${time}`;
     }
   };
 
   return (
-    <Fragment>
+    <Container>
       <AppointmentModal />
-      <Container>
-        <DelayedSpinner loading={loading} />
-        {appointments.length ? (
-          <ListGroup>
-            <TransitionGroup className='shopping-list'>
-              {appointments.map(({ _id, name, date, time }) => (
-                <CSSTransition key={_id} timeout={500} classNames='fade'>
-                  <ListGroupItem>
-                    <Button
-                      className='remove-btn'
-                      color='danger'
-                      size='sm'
-                      onClick={() => deleteAppt(_id)}
-                    >
-                      &times;
-                    </Button>
-                    {conditionalText(name, date, time)}
-                  </ListGroupItem>
-                </CSSTransition>
-              ))}
-            </TransitionGroup>
-          </ListGroup>
-        ) : (
-          <EmptyListMessage itemType='appointments' loading={loading} />
-        )}
-      </Container>
-    </Fragment>
+      {isLoading && <DelayedSpinner />}
+      {/* NESTED TERNARY OPERATOR - appointments.length ? <ListGroup> : error ? <Alert> : <EmptyListMessage> */}
+      {appointments.length ? (
+        <ListGroup>
+          <TransitionGroup className='shopping-list'>
+            {appointments.map(({ _id, name, date, time }) => (
+              <CSSTransition key={_id} timeout={500} classNames='fade'>
+                <ListGroupItem color='info'>
+                  <Button
+                    className='remove-btn'
+                    color='danger'
+                    size='sm'
+                    onClick={() => deleteAppt(_id)}
+                  >
+                    &times;
+                  </Button>
+                  {name}
+                  <Badge color='info' className='list-item-badge'>
+                    {conditionalRendering(date, time)}
+                  </Badge>
+                </ListGroupItem>
+              </CSSTransition>
+            ))}
+          </TransitionGroup>
+        </ListGroup>
+      ) : error ? (
+        <Alert color='danger'>There was a problem with the request :(</Alert>
+      ) : (
+        <EmptyListMessage itemType='appointments' isLoading={isLoading} />
+      )}
+    </Container>
   );
 };
 

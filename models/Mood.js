@@ -2,14 +2,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // Create Schema
-const ItemSchema = new Schema({
-  name: {
-    type: String,
+const MoodSchema = new Schema({
+  mood: {
+    type: Number,
     required: true
   },
-  quantity: {
-    type: Number,
-    default: 1
+  thought: {
+    type: String,
+    default: 'No thoughts recorded.'
   },
   date: {
     type: Date,
@@ -18,4 +18,4 @@ const ItemSchema = new Schema({
 });
 
 // Compile and export schema
-module.exports = Item = mongoose.model('item', ItemSchema);
+module.exports = Mood = mongoose.model('mood', MoodSchema);

@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Spinner } from 'reactstrap';
 
-const DelayedSpinner = props => {
+const DelayedSpinner = ({ size }) => {
   const [isSpinnerVisible, setIsSpinnerVisible] = useState(false);
   const [delay, setDelay] = useState(500);
-  const { loading } = props;
+  const spinnerStyle =
+    size === 'small' ? {} : { width: '3rem', height: '3rem' };
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      loading && setIsSpinnerVisible(true);
+      setIsSpinnerVisible(true);
     }, delay);
 
     return function cleanUp() {
@@ -16,11 +17,7 @@ const DelayedSpinner = props => {
     };
   }, []);
 
-  return (
-    isSpinnerVisible && (
-      <Spinner style={{ width: '3rem', height: '3rem' }} type='grow' />
-    )
-  );
+  return isSpinnerVisible && <Spinner style={spinnerStyle} type='grow' />;
 };
 
 export default DelayedSpinner;
