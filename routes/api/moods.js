@@ -19,7 +19,6 @@ router.post('/', (req, res) => {
     mood: req.body.mood,
     thought: req.body.thought
   });
-
   newMood.save().then(mood => res.json(mood));
 });
 

@@ -82,7 +82,7 @@ const Tabs = () => {
         <TabPane tabId='3'>
           <Row>
             <Col sm='12'>
-              <MoodList />{' '}
+              <MoodList />
             </Col>
           </Row>
         </TabPane>

@@ -13,7 +13,7 @@ import {
 import { GroceryContext } from '../../contexts/GroceryContext';
 
 const ItemModal = props => {
-  const { addItem } = useContext(GroceryContext);
+  const { addItem, updateItem } = useContext(GroceryContext);
   const [modal, setModal] = useState(false);
   const [name, setName] = useState('');
   const [quantity, setQuantity] = useState(1);
@@ -23,6 +23,7 @@ const ItemModal = props => {
     e.preventDefault();
     setName(e.target.value);
   };
+
   const onSubmit = e => {
     e.preventDefault();
     addItem({ name, quantity });

@@ -15,16 +15,16 @@ import { MoodsContext } from '../../contexts/MoodsContext';
 const MoodModal = props => {
   const { addMood } = useContext(MoodsContext);
   const [modal, setModal] = useState(false);
-  const [thought, setThought] = useState('');
-  const [mood, setMood] = useState(null);
+  const [thought, setThought] = useState(undefined);
+  const [mood, setMood] = useState(undefined);
 
   const toggle = () => setModal(!modal);
 
   const onSubmit = e => {
     e.preventDefault();
     addMood({ mood: mood, thought });
-    setMood(null);
-    setThought('');
+    setMood(undefined);
+    setThought(undefined);
     toggle();
   };
 

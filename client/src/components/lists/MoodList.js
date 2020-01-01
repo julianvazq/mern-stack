@@ -21,19 +21,14 @@ const MoodList = () => {
     switch (mood) {
       case 1:
         return 'danger';
-        break;
       case 2:
         return 'warning';
-        break;
       case 3:
-        return 'info';
-        break;
-      case 4:
         return 'primary';
-        break;
+      case 4:
+        return 'info';
       case 5:
         return 'success';
-        break;
       default:
         return;
     }

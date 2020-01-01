@@ -1,4 +1,4 @@
-import React, { useContext, Fragment } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   Container,
   ListGroup,
@@ -14,12 +14,15 @@ import EmptyListMessage from '../EmpyListMessage';
 import ItemModal from '../modals/ItemModal';
 
 const GroceryList = () => {
-  // Get items from ShoppingContext
-  const { items, deleteItem, isLoading, error } = useContext(GroceryContext);
+  // Get items from GroceryContext
+  const { items, deleteItem, updateItem, isLoading, error } = useContext(
+    GroceryContext
+  );
+  const [toggleToUpdate, setToggleToUpdate] = useState(false);
 
   return (
     <Container>
-      <ItemModal />
+      <ItemModal toggleToUpdate={toggleToUpdate} />
       {isLoading && <DelayedSpinner />}
       {/* NESTED TERNARY OPERATOR - items.length ? <ListGroup> : error ? <Alert> : <EmptyListMessage> */}
       {items.length ? (
@@ -37,7 +40,13 @@ const GroceryList = () => {
                     &times;
                   </Button>
                   {name}{' '}
-                  <Badge color='success' className='list-item-badge'>
+                  <Badge
+                    color='success'
+                    className='list-item-badge'
+                    onClick={() => {
+                      setToggleToUpdate(true);
+                    }}
+                  >
                     {' '}
                     Quantity: {quantity}
                   </Badge>

@@ -28,6 +28,10 @@ const GroceryContextProvider = props => {
     setItems(items.filter(item => item._id !== id));
   };
 
+  const updateItem = async => {
+    console.log('editting...');
+  };
+
   useEffect(() => {
     if (error) {
       setIsLoading(false);
@@ -45,6 +49,7 @@ const GroceryContextProvider = props => {
         items,
         deleteItem,
         addItem,
+        updateItem,
         isLoading,
         error
       }}
