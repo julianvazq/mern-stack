@@ -22,6 +22,18 @@ router.post('/', (req, res) => {
   newMood.save().then(mood => res.json(mood));
 });
 
+//@route POST api/moods/
+//@desc Update A Mood
+router.post('/:id', (req, res) => {
+  Mood.findById(req.params.id)
+    .then(mood => {
+      mood.mood = req.body.mood;
+      mood.thought = req.body.thought;
+      mood.save().then(mood => res.json(mood));
+    })
+    .catch(err => res.status(404).json({ success: false }));
+});
+
 //@route DELETE api/moods/:id
 //@desc Delete A Mood
 router.delete('/:id', (req, res) => {

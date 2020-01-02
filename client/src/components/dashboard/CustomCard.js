@@ -84,6 +84,7 @@ const CustomCard = props => {
             {listItems.slice(0, 3).map(item => {
               countItemsShowing++;
               if (titleLowerCase === 'groceries') {
+                console.log('rendered grocery card');
                 return (
                   <CSSTransition
                     key={item._id}

@@ -22,17 +22,27 @@ const GroceryContextProvider = props => {
     });
   };
 
+  //PUT request
+  const updateItem = async ({ itemEditId: id, name, quantity }) => {
+    await axios.post(`/api/items/${id}`, {
+      name: name,
+      quantity: quantity
+    });
+    // Use post response to set new state
+    const newState = [...items];
+    const index = items.findIndex(item => item._id === id);
+    newState[index] = { _id: id, name, quantity };
+    setItems(newState);
+  };
+
   // DELETE request
   const deleteItem = async id => {
     await axios.delete(`/api/items/${id}`);
     setItems(items.filter(item => item._id !== id));
   };
 
-  const updateItem = async => {
-    console.log('editting...');
-  };
-
   useEffect(() => {
+    console.log('rendered grocery context');
     if (error) {
       setIsLoading(false);
     } else if (!response) {

@@ -23,6 +23,18 @@ router.post('/', (req, res) => {
   newItem.save().then(item => res.json(item));
 });
 
+//@route POST api/items/
+//@desc Update An Item
+router.post('/:id', (req, res) => {
+  Item.findById(req.params.id)
+    .then(item => {
+      item.name = req.body.name;
+      item.quantity = req.body.quantity;
+      item.save().then(item => res.json(item));
+    })
+    .catch(err => res.status(404).json({ success: false }));
+});
+
 //@route DELETE api/items/:id
 //@desc Delete An Item
 router.delete('/:id', (req, res) => {

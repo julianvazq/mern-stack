@@ -24,6 +24,19 @@ router.post('/', (req, res) => {
   newAppointment.save().then(appointment => res.json(appointment));
 });
 
+//@route POST api/appointments/
+//@desc Update An Appointment
+router.post('/:id', (req, res) => {
+  Appointment.findById(req.params.id)
+    .then(appointment => {
+      appointment.name = req.body.name;
+      appointment.date = req.body.date;
+      appointment.time = req.body.time;
+      appointment.save().then(appointment => res.json(appointment));
+    })
+    .catch(err => res.status(404).json({ success: false }));
+});
+
 //@route DELETE api/appointments/:id
 //@desc Delete An Appointment
 router.delete('/:id', (req, res) => {

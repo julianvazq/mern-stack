@@ -10,36 +10,33 @@ import {
   Label,
   Input
 } from 'reactstrap';
-import { GroceryContext } from '../../contexts/GroceryContext';
 
-const ItemModal = props => {
-  const { addItem, updateItem } = useContext(GroceryContext);
-  const [modal, setModal] = useState(false);
-  const [name, setName] = useState('');
-  const [quantity, setQuantity] = useState(1);
-
-  const toggle = () => setModal(!modal);
-  const handleNameChange = e => {
-    e.preventDefault();
-    setName(e.target.value);
-  };
-
-  const onSubmit = e => {
-    e.preventDefault();
-    addItem({ name, quantity });
-    setName('');
-    setQuantity(1);
-    toggle();
-  };
-
+const ItemModal = ({
+  toggle,
+  modal,
+  name,
+  quantity,
+  addOrUpdate,
+  handleNameChange,
+  handleQuantityChange,
+  resetFields,
+  onSubmit
+}) => {
   return (
     <div>
-      <Button color='dark' style={{ marginBottom: '2rem' }} onClick={toggle}>
+      <Button
+        color='dark'
+        style={{ marginBottom: '2rem' }}
+        onClick={() => {
+          toggle();
+          resetFields();
+        }}
+      >
         Add Item
       </Button>
 
       <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Add To Shopping List</ModalHeader>
+        <ModalHeader toggle={toggle}>{addOrUpdate} Item</ModalHeader>
         <ModalBody>
           <Form onSubmit={onSubmit}>
             <FormGroup>
@@ -50,7 +47,7 @@ const ItemModal = props => {
                   name='name'
                   value={name}
                   id='item'
-                  placeholder='Add shopping item...'
+                  placeholder={`${addOrUpdate} grocery item...`}
                   onChange={handleNameChange}
                 />
                 <FormText>Required</FormText>
@@ -59,9 +56,10 @@ const ItemModal = props => {
                 <Label for='exampleSelect'>Quantity</Label>
                 <Input
                   type='select'
+                  value={quantity}
                   name='quantity'
                   id='quantityInput'
-                  onChange={e => setQuantity(e.target.value)}
+                  onChange={handleQuantityChange}
                 >
                   <option>1</option>
                   <option>2</option>
@@ -74,9 +72,10 @@ const ItemModal = props => {
                   <option>9</option>
                   <option>10</option>
                 </Input>
+                <FormText>Optional</FormText>
               </FormGroup>
               <Button color='dark' style={{ marginTop: '2rem' }} block>
-                Add Item
+                {addOrUpdate} Item
               </Button>
             </FormGroup>
           </Form>

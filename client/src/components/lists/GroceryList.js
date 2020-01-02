@@ -15,14 +15,77 @@ import ItemModal from '../modals/ItemModal';
 
 const GroceryList = () => {
   // Get items from GroceryContext
-  const { items, deleteItem, updateItem, isLoading, error } = useContext(
-    GroceryContext
-  );
-  const [toggleToUpdate, setToggleToUpdate] = useState(false);
+  const {
+    items,
+    deleteItem,
+    addItem,
+    updateItem,
+    isLoading,
+    error
+  } = useContext(GroceryContext);
+  const [modal, setModal] = useState(false);
+  const [name, setName] = useState('');
+  const [quantity, setQuantity] = useState(1);
+  const [addOrUpdate, setAddOrUpdate] = useState('Add');
+  const [itemEditId, setItemEditId] = useState(null);
+
+  const toggle = () => {
+    setModal(!modal);
+    /* Set modal action back to "Add" in case an item update changed it to "Update" beforehand */
+    if (!modal && addOrUpdate === 'Update') {
+      setAddOrUpdate('Add');
+    }
+  };
+
+  const handleNameChange = e => {
+    e.preventDefault();
+    setName(e.target.value);
+  };
+
+  const handleQuantityChange = e => {
+    setQuantity(e.target.value);
+  };
+
+  const onSubmit = e => {
+    e.preventDefault();
+    if (addOrUpdate === 'Add') {
+      const input = { name, quantity };
+      addItem(input);
+    } else {
+      const input = { itemEditId, name, quantity };
+      updateItem(input);
+    }
+    resetFields();
+    toggle();
+  };
+
+  const resetFields = () => {
+    setName('');
+    setQuantity(1);
+    setItemEditId(null);
+  };
+
+  const editItem = (id, name, quantity) => {
+    toggle();
+    setAddOrUpdate('Update');
+    setName(name);
+    setQuantity(quantity);
+    setItemEditId(id);
+  };
 
   return (
     <Container>
-      <ItemModal toggleToUpdate={toggleToUpdate} />
+      <ItemModal
+        modal={modal}
+        name={name}
+        quantity={quantity}
+        addOrUpdate={addOrUpdate}
+        toggle={toggle}
+        handleNameChange={handleNameChange}
+        handleQuantityChange={handleQuantityChange}
+        resetFields={resetFields}
+        onSubmit={onSubmit}
+      />
       {isLoading && <DelayedSpinner />}
       {/* NESTED TERNARY OPERATOR - items.length ? <ListGroup> : error ? <Alert> : <EmptyListMessage> */}
       {items.length ? (
@@ -40,16 +103,19 @@ const GroceryList = () => {
                     &times;
                   </Button>
                   {name}{' '}
-                  <Badge
-                    color='success'
-                    className='list-item-badge'
-                    onClick={() => {
-                      setToggleToUpdate(true);
-                    }}
-                  >
+                  <Badge color='success' className='list-item-badge'>
                     {' '}
                     Quantity: {quantity}
                   </Badge>
+                  <Button
+                    outline
+                    className='list-item-btn'
+                    color='secondary'
+                    size='sm'
+                    onClick={() => editItem(_id, name, quantity)}
+                  >
+                    Edit
+                  </Button>
                 </ListGroupItem>
               </CSSTransition>
             ))}

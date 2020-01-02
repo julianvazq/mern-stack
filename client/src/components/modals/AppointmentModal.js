@@ -74,6 +74,7 @@ const ItemModal = props => {
                 placeholder='date placeholder'
                 onChange={handleDate}
               />
+              <FormText>Optional</FormText>
             </FormGroup>
             <FormGroup>
               <Label for='timeInput'>Time</Label>
@@ -85,6 +86,7 @@ const ItemModal = props => {
                 placeholder='time placeholder'
                 onChange={handleTime}
               />
+              <FormText>Optional</FormText>
             </FormGroup>
             <Button color='dark' style={{ marginTop: '2rem' }} block>
               Add Appointment

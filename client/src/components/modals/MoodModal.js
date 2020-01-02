@@ -7,6 +7,7 @@ import {
   ModalBody,
   Form,
   FormGroup,
+  FormText,
   Label,
   Input
 } from 'reactstrap';
@@ -39,7 +40,7 @@ const MoodModal = props => {
         <ModalBody>
           <Form onSubmit={onSubmit}>
             <FormGroup>
-              <Label for='mood'>How do you feel today?</Label>
+              <Label for='mood'>How are you feeling today?</Label>
               <br />
               <ButtonGroup>
                 <Button
@@ -78,6 +79,7 @@ const MoodModal = props => {
                   5
                 </Button>
               </ButtonGroup>
+              <FormText>Required</FormText>
               <FormGroup />
               <FormGroup>
                 <Label for='thought'>Thoughts</Label>
@@ -90,6 +92,7 @@ const MoodModal = props => {
                     setThought(e.target.value);
                   }}
                 />
+                <FormText>Optional</FormText>
               </FormGroup>
               <Button color='dark' style={{ marginTop: '2rem' }} block>
                 Add Mood
