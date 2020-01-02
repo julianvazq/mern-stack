@@ -23,6 +23,19 @@ const MoodsContextProvider = props => {
     });
   };
 
+  //POST (update) request
+  const updateMood = async ({ itemEditId: id, mood, thought }) => {
+    await axios.post(`/api/moods/${id}`, {
+      mood,
+      thought
+    });
+    // Use post response to set new state
+    const newState = [...moods];
+    const index = moods.findIndex(mood => mood._id === id);
+    newState[index] = { _id: id, mood, thought };
+    setMoods(newState);
+  };
+
   // DELETE request
   const deleteMood = async id => {
     await axios.delete(`/api/moods/${id}`);
@@ -46,6 +59,7 @@ const MoodsContextProvider = props => {
         moods,
         deleteMood,
         addMood,
+        updateMood,
         isLoading,
         error
       }}

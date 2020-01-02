@@ -1,4 +1,4 @@
-import React, { useContext, Fragment } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   Container,
   ListGroup,
@@ -15,9 +15,72 @@ import AppointmentModal from '../modals/AppointmentModal';
 
 const AppointmentList = () => {
   // Get items from DataContext
-  const { appointments, deleteAppt, isLoading, error } = useContext(
-    AppointmentsContext
-  );
+  const {
+    appointments,
+    addAppt,
+    deleteAppt,
+    updateAppt,
+    isLoading,
+    error
+  } = useContext(AppointmentsContext);
+
+  const [modal, setModal] = useState(false);
+  const [name, setName] = useState('');
+  const [date, setDate] = useState('');
+  const [time, setTime] = useState('');
+  const [addOrUpdate, setAddOrUpdate] = useState('Add');
+  const [itemEditId, setItemEditId] = useState(null);
+
+  const toggle = () => {
+    setModal(!modal);
+    /* Set modal action back to "Add" in case an item update changed it to "Update" beforehand */
+    if (!modal && addOrUpdate === 'Update') {
+      setAddOrUpdate('Add');
+    }
+  };
+
+  const handleNameChange = name => {
+    setName(name);
+  };
+
+  const handleDateChange = date => {
+    setDate(date);
+  };
+
+  const handleTimeChange = time => {
+    setTime(time);
+  };
+
+  const onSubmit = e => {
+    e.preventDefault();
+
+    if (addOrUpdate === 'Add') {
+      const input = { name, date, time };
+      addAppt(input);
+    } else {
+      const input = { itemEditId, name, date, time };
+      updateAppt(input);
+    }
+
+    resetFields();
+    toggle();
+  };
+
+  const resetFields = () => {
+    setName('');
+    setDate('');
+    setTime('');
+    setItemEditId(null);
+  };
+
+  const editAppt = (id, name, date, time) => {
+    toggle();
+    setAddOrUpdate('Update');
+    setName(name);
+    setDate(date);
+    setTime(time);
+    setItemEditId(id);
+  };
 
   const conditionalRendering = (date, time) => {
     if (date && time) {
@@ -31,7 +94,19 @@ const AppointmentList = () => {
 
   return (
     <Container>
-      <AppointmentModal />
+      <AppointmentModal
+        modal={modal}
+        name={name}
+        date={date}
+        time={time}
+        addOrUpdate={addOrUpdate}
+        toggle={toggle}
+        handleNameChange={handleNameChange}
+        handleDateChange={handleDateChange}
+        handleTimeChange={handleTimeChange}
+        resetFields={resetFields}
+        onSubmit={onSubmit}
+      />
       {isLoading && <DelayedSpinner />}
       {/* NESTED TERNARY OPERATOR - appointments.length ? <ListGroup> : error ? <Alert> : <EmptyListMessage> */}
       {appointments.length ? (
@@ -52,6 +127,15 @@ const AppointmentList = () => {
                   <Badge color='info' className='list-item-badge'>
                     {conditionalRendering(date, time)}
                   </Badge>
+                  <Button
+                    outline
+                    className='list-item-btn'
+                    color='secondary'
+                    size='sm'
+                    onClick={() => editAppt(_id, name, date, time)}
+                  >
+                    Edit
+                  </Button>
                 </ListGroupItem>
               </CSSTransition>
             ))}

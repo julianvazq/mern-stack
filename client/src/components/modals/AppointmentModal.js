@@ -12,44 +12,34 @@ import {
 } from 'reactstrap';
 import { AppointmentsContext } from '../../contexts/AppointmentsContext';
 
-const ItemModal = props => {
-  const { addAppt } = useContext(AppointmentsContext);
-  const [modal, setModal] = useState(false);
-  const [name, setName] = useState('');
-  const [date, setDate] = useState('');
-  const [time, setTime] = useState('');
-
-  const toggle = () => setModal(!modal);
-  const handleName = e => {
-    e.preventDefault();
-    setName(e.target.value);
-  };
-
-  const handleDate = e => {
-    e.preventDefault();
-    setDate(e.target.value);
-  };
-
-  const handleTime = e => {
-    e.preventDefault();
-    setTime(e.target.value);
-  };
-
-  const onSubmit = e => {
-    e.preventDefault();
-    addAppt({ name, date, time });
-    setName('');
-    toggle();
-  };
-
+const ItemModal = ({
+  toggle,
+  modal,
+  name,
+  date,
+  time,
+  addOrUpdate,
+  handleNameChange,
+  handleDateChange,
+  handleTimeChange,
+  resetFields,
+  onSubmit
+}) => {
   return (
     <div>
-      <Button color='dark' style={{ marginBottom: '2rem' }} onClick={toggle}>
+      <Button
+        color='dark'
+        style={{ marginBottom: '2rem' }}
+        onClick={() => {
+          toggle();
+          resetFields();
+        }}
+      >
         Add Appointment
       </Button>
 
       <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Add To Appointment List</ModalHeader>
+        <ModalHeader toggle={toggle}>{addOrUpdate} Appointment</ModalHeader>
         <ModalBody>
           <Form onSubmit={onSubmit}>
             <FormGroup>
@@ -60,7 +50,7 @@ const ItemModal = props => {
                 value={name}
                 id='name'
                 placeholder='Appointment name...'
-                onChange={handleName}
+                onChange={e => handleNameChange(e.target.value)}
               />
               <FormText>Required</FormText>
             </FormGroup>
@@ -72,7 +62,7 @@ const ItemModal = props => {
                 value={date}
                 id='dateInput'
                 placeholder='date placeholder'
-                onChange={handleDate}
+                onChange={e => handleDateChange(e.target.value)}
               />
               <FormText>Optional</FormText>
             </FormGroup>
@@ -84,12 +74,12 @@ const ItemModal = props => {
                 value={time}
                 id='timeInput'
                 placeholder='time placeholder'
-                onChange={handleTime}
+                onChange={e => handleTimeChange(e.target.value)}
               />
               <FormText>Optional</FormText>
             </FormGroup>
             <Button color='dark' style={{ marginTop: '2rem' }} block>
-              Add Appointment
+              {addOrUpdate} Appointment
             </Button>
           </Form>
         </ModalBody>

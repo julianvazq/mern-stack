@@ -23,6 +23,20 @@ const AppointmentsContextProvider = props => {
     });
   };
 
+  //POST (update) request
+  const updateAppt = async ({ itemEditId: id, name, date, time }) => {
+    await axios.post(`/api/appointments/${id}`, {
+      name,
+      date,
+      time
+    });
+    // Use post response to set new state
+    const newState = [...appointments];
+    const index = appointments.findIndex(appointment => appointment._id === id);
+    newState[index] = { _id: id, name, date, time };
+    setAppointments(newState);
+  };
+
   // DELETE request
   const deleteAppt = async id => {
     await axios.delete(`/api/appointments/${id}`);
@@ -46,6 +60,7 @@ const AppointmentsContextProvider = props => {
         appointments,
         deleteAppt,
         addAppt,
+        updateAppt,
         isLoading,
         error
       }}
