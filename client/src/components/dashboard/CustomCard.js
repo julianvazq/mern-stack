@@ -18,7 +18,7 @@ import DelayedSpinner from '../DelayedSpinner';
 
 const CustomCard = props => {
   const { title, imgPath, isLoading, listItems } = props;
-  const MAX_CHAR_LENGTH = 50;
+  const MAX_CHAR_LENGTH = 120;
   const { toggleTab } = useContext(ActiveTabContext);
 
   const titleLowerCase = title.toLowerCase();
@@ -82,70 +82,31 @@ const CustomCard = props => {
           <TransitionGroup>
             {listItems.slice(0, 3).map(item => {
               countItemsShowing++;
-              if (titleLowerCase === 'groceries') {
-                console.log('rendered grocery card');
-                return (
-                  <CSSTransition
-                    key={item._id}
-                    timeout={400}
-                    classNames='fade-dashboard'
-                  >
-                    <ListGroupItem key={item._id}>
-                      {' '}
-                      <Button
-                        className='remove-btn'
-                        color='danger'
-                        size='sm'
-                        onClick={() => props.delete(item._id)}
-                      >
-                        &times;
-                      </Button>
-                      {item.name}
-                    </ListGroupItem>
-                  </CSSTransition>
-                );
-              } else if (titleLowerCase === 'appointments') {
-                return (
-                  <CSSTransition
-                    key={item._id}
-                    timeout={400}
-                    classNames='fade-dashboard'
-                  >
-                    <ListGroupItem key={item._id}>
-                      {' '}
-                      <Button
-                        className='remove-btn'
-                        color='danger'
-                        size='sm'
-                        onClick={() => props.delete(item._id)}
-                      >
-                        &times;
-                      </Button>
-                      {item.name}
-                    </ListGroupItem>
-                  </CSSTransition>
-                );
-              } else if (titleLowerCase === 'moods') {
-                return (
-                  <CSSTransition
-                    key={item._id}
-                    timeout={400}
-                    classNames='fade-dashboard'
-                  >
-                    <ListGroupItem key={item._id}>
-                      <Button
-                        className='remove-btn'
-                        color='danger'
-                        size='sm'
-                        onClick={() => props.delete(item._id)}
-                      >
-                        &times;
-                      </Button>
-                      {item.thought}
-                    </ListGroupItem>
-                  </CSSTransition>
-                );
-              }
+              return (
+                <CSSTransition
+                  key={item._id}
+                  timeout={400}
+                  classNames='fade-dashboard'
+                >
+                  <ListGroupItem key={item._id}>
+                    {' '}
+                    <Button
+                      style={{ verticalAlign: item.thought ? 'bottom' : '' }}
+                      className='remove-btn'
+                      color='danger'
+                      size='sm'
+                      onClick={() => props.delete(item._id)}
+                    >
+                      &times;
+                    </Button>
+                    {titleLowerCase !== 'moods'
+                      ? item.name
+                      : item.thought.length < 150
+                      ? item.thought
+                      : `${item.thought.substring(0, MAX_CHAR_LENGTH)}...`}
+                  </ListGroupItem>
+                </CSSTransition>
+              );
             })}
           </TransitionGroup>
           {countItemsShowing ? (
