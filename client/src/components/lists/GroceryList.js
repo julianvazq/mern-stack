@@ -108,7 +108,6 @@ const GroceryList = () => {
                     Quantity: {quantity}
                   </Badge>
                   <Button
-                    outline
                     className='list-item-btn'
                     color='secondary'
                     size='sm'

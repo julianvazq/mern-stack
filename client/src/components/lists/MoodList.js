@@ -107,26 +107,31 @@ const MoodList = () => {
           <TransitionGroup className='mood-list'>
             {moods.map(({ _id, mood, thought }) => (
               <CSSTransition key={_id} timeout={500} classNames='fade'>
-                <ListGroupItem color={conditionalRendering(mood)}>
+                <ListGroupItem
+                  className='list-group-item__mood'
+                  color={conditionalRendering(mood)}
+                >
                   <Button
-                    className='remove-btn'
+                    className='remove-btn remove-btn__mood'
                     color='danger'
                     size='sm'
                     onClick={() => deleteMood(_id)}
                   >
                     &times;
                   </Button>
-                  {thought}
+                  <p className='thought-container'>
+                    {thought}
+                    {console.log(thought.length)}
+                  </p>
                   <Badge
                     color={conditionalRendering(mood)}
-                    className='list-item-badge'
+                    className='list-item-badge list-item-badge__mood'
                   >
                     {' '}
                     Mood: {mood}
                   </Badge>
                   <Button
-                    outline
-                    className='list-item-btn'
+                    className='list-item-btn list-item-btn__mood'
                     color='secondary'
                     size='sm'
                     onClick={() => editMood(_id, mood, thought)}

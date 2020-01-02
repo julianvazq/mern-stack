@@ -17,32 +17,32 @@ const Dashboard = () => {
   );
 
   return (
-    <Container style={{ margin: '4rem 0 3rem 0' }}>
-      <CardDeck>
-        <CustomCard
-          title='Groceries'
-          imgPath={require('../../images/grocery.jpg')}
-          isLoading={groceryLoading}
-          listItems={items}
-          delete={deleteItem}
-        />
-        <CustomCard
-          title='Appointments'
-          imgPath={require('../../images/appointments.jpg')}
-          isLoading={apptLoading}
-          listItems={appointments}
-          delete={deleteAppt}
-        />
-        <CustomCard
-          title='Moods'
-          imgPath={require('../../images/moods.jpg')}
-          isLoading={moodsLoading}
-          listItems={moods}
-          delete={deleteMood}
-        />
-      </CardDeck>
-      <CardDeck style={{ marginTop: '1.5rem' }}></CardDeck>
-    </Container>
+    // <Container style={{ margin: '4rem 0 3rem 0' }}>
+    <CardDeck>
+      <CustomCard
+        title='Groceries'
+        imgPath={require('../../images/grocery.jpg')}
+        isLoading={groceryLoading}
+        listItems={items}
+        delete={deleteItem}
+      />
+      <CustomCard
+        title='Appointments'
+        imgPath={require('../../images/appointments.jpg')}
+        isLoading={apptLoading}
+        listItems={appointments}
+        delete={deleteAppt}
+      />
+      <CustomCard
+        title='Moods'
+        imgPath={require('../../images/moods.jpg')}
+        isLoading={moodsLoading}
+        listItems={moods}
+        delete={deleteMood}
+      />
+    </CardDeck>
+    // <CardDeck style={{ marginTop: '1.5rem' }}></CardDeck>
+    // </Container>
   );
 };
 

@@ -15,11 +15,10 @@ import {
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { ActiveTabContext } from '../../contexts/ActiveTabContext';
 import DelayedSpinner from '../DelayedSpinner';
-import { set } from 'mongoose';
 
 const CustomCard = props => {
   const { title, imgPath, isLoading, listItems } = props;
-
+  const MAX_CHAR_LENGTH = 50;
   const { toggleTab } = useContext(ActiveTabContext);
 
   const titleLowerCase = title.toLowerCase();
@@ -80,7 +79,7 @@ const CustomCard = props => {
       )}
       <CardBody>
         <ListGroup>
-          <TransitionGroup className='shopping-list'>
+          <TransitionGroup>
             {listItems.slice(0, 3).map(item => {
               countItemsShowing++;
               if (titleLowerCase === 'groceries') {

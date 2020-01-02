@@ -85,6 +85,7 @@ const MoodModal = ({
               <FormGroup>
                 <Label for='thought'>Thoughts</Label>
                 <Input
+                  style={{ minHeight: '200px' }}
                   type='textarea'
                   value={thought}
                   name='text'

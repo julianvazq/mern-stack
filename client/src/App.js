@@ -30,12 +30,11 @@ function App() {
             <GroceryContextProvider>
               <AppointmentsContextProvider>
                 <MoodsContextProvider>
-                  <Container>
-                    <Switch>
-                      <Route path='/' exact component={Dashboard} />
-                      <Route path='/tracker' exact component={Tabs} />
-                    </Switch>
-                  </Container>
+                  <Switch>
+                    <Route path='/' exact component={Dashboard} />
+
+                    <Route path='/tracker' exact component={Tabs} />
+                  </Switch>
                 </MoodsContextProvider>
               </AppointmentsContextProvider>
             </GroceryContextProvider>
