@@ -16,6 +16,7 @@ const AppointmentsContextProvider = props => {
       date: input.date,
       time: input.time
     });
+
     // Use post response to set new state
     setAppointments(() => {
       const { _id, name, date, time } = res.data; // Set inside function to avoid "Identifier 'name' has already been declared"

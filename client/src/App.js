@@ -32,8 +32,14 @@ function App() {
                 <MoodsContextProvider>
                   <Switch>
                     <Route path='/' exact component={Dashboard} />
-
                     <Route path='/tracker' exact component={Tabs} />
+                    <Route
+                      render={() => (
+                        <h2 style={{ textAlign: 'center' }}>
+                          404 Page Not Found
+                        </h2>
+                      )}
+                    />
                   </Switch>
                 </MoodsContextProvider>
               </AppointmentsContextProvider>

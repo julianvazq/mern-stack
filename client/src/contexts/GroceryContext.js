@@ -42,7 +42,6 @@ const GroceryContextProvider = props => {
   };
 
   useEffect(() => {
-    console.log('rendered grocery context');
     if (error) {
       setIsLoading(false);
     } else if (!response) {

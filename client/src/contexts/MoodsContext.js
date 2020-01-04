@@ -18,8 +18,8 @@ const MoodsContextProvider = props => {
 
     // Use post response to set new state
     setMoods(() => {
-      const { _id, mood, thought } = res.data; // Set inside function to avoid "Identifier 'name' has already been declared"
-      return [...moods, { _id, mood, thought }];
+      const { _id, mood, thought, date } = res.data; // Set inside function to avoid "Identifier 'name' has already been declared"
+      return [...moods, { _id, mood, thought, date }];
     });
   };
 

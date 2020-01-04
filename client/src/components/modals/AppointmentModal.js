@@ -10,7 +10,6 @@ import {
   Label,
   Input
 } from 'reactstrap';
-import { AppointmentsContext } from '../../contexts/AppointmentsContext';
 
 const ItemModal = ({
   toggle,

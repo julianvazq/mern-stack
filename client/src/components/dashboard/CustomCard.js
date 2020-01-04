@@ -18,7 +18,7 @@ import DelayedSpinner from '../DelayedSpinner';
 
 const CustomCard = props => {
   const { title, imgPath, isLoading, listItems } = props;
-  const MAX_CHAR_LENGTH = 120;
+  const MAX_CHAR_LENGTH = 80;
   const { toggleTab } = useContext(ActiveTabContext);
 
   const titleLowerCase = title.toLowerCase();
@@ -91,7 +91,13 @@ const CustomCard = props => {
                   <ListGroupItem key={item._id}>
                     {' '}
                     <Button
-                      style={{ verticalAlign: item.thought ? 'bottom' : '' }}
+                      style={{
+                        verticalAlign: !item.thought
+                          ? ''
+                          : item.thought.length > 25
+                          ? 'bottom'
+                          : ''
+                      }}
                       className='remove-btn'
                       color='danger'
                       size='sm'
@@ -101,7 +107,7 @@ const CustomCard = props => {
                     </Button>
                     {titleLowerCase !== 'moods'
                       ? item.name
-                      : item.thought.length < 150
+                      : item.thought.length < MAX_CHAR_LENGTH
                       ? item.thought
                       : `${item.thought.substring(0, MAX_CHAR_LENGTH)}...`}
                   </ListGroupItem>

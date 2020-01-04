@@ -33,7 +33,8 @@ const AppointmentList = () => {
 
   const toggle = () => {
     setModal(!modal);
-    /* Set modal action back to "Add" in case an item update changed it to "Update" beforehand */
+    /* Set modal action back to "Add" in case an item update changed it to "Update" beforehand
+    Only do this once modal is closed (!modal) to prevent user from seeing this change */
     if (!modal && addOrUpdate === 'Update') {
       setAddOrUpdate('Add');
     }
@@ -86,9 +87,9 @@ const AppointmentList = () => {
     if (date && time) {
       return `${date} at ${time}`;
     } else if (date) {
-      return `${date}`;
+      return date;
     } else {
-      return `${time}`;
+      return time;
     }
   };
 
@@ -99,36 +100,52 @@ const AppointmentList = () => {
         name={name}
         date={date}
         time={time}
-        addOrUpdate={addOrUpdate}
         toggle={toggle}
+        addOrUpdate={addOrUpdate}
         handleNameChange={handleNameChange}
         handleDateChange={handleDateChange}
         handleTimeChange={handleTimeChange}
         resetFields={resetFields}
         onSubmit={onSubmit}
       />
-      {isLoading && <DelayedSpinner />}
-      {/* NESTED TERNARY OPERATOR - appointments.length ? <ListGroup> : error ? <Alert> : <EmptyListMessage> */}
-      {appointments.length ? (
+      {/* NESTED TERNARY OPERATOR 
+      isLoading ? <DelayedSpinner> :
+       error ? <Alert> : 
+       appointments.length ? <ListGroup> : 
+       <EmptyListMessage> */}
+      {isLoading ? (
+        <DelayedSpinner />
+      ) : error ? (
+        <Alert color='danger'>There was a problem with the request.</Alert>
+      ) : appointments.length ? (
         <ListGroup>
           <TransitionGroup className='shopping-list'>
             {appointments.map(({ _id, name, date, time }) => (
               <CSSTransition key={_id} timeout={500} classNames='fade'>
-                <ListGroupItem color='info'>
+                <ListGroupItem color='info' className='list-group-item__inline'>
                   <Button
-                    className='remove-btn'
+                    className='remove-btn remove-btn__inline'
                     color='danger'
                     size='sm'
                     onClick={() => deleteAppt(_id)}
                   >
                     &times;
                   </Button>
-                  {name}
-                  <Badge color='info' className='list-item-badge'>
-                    {conditionalRendering(date, time)}
+                  <p className='long-text-container'>{name}</p>
+                  <Badge
+                    color='secondary'
+                    className='list-item-badge list-item-badge__inline date-badge'
+                  >
+                    {date}
+                  </Badge>
+                  <Badge
+                    color='info'
+                    className='list-item-badge list-item-badge__inline'
+                  >
+                    {time}
                   </Badge>
                   <Button
-                    className='list-item-btn'
+                    className='list-item-btn list-item-btn__inline'
                     color='secondary'
                     size='sm'
                     onClick={() => editAppt(_id, name, date, time)}
@@ -140,10 +157,8 @@ const AppointmentList = () => {
             ))}
           </TransitionGroup>
         </ListGroup>
-      ) : error ? (
-        <Alert color='danger'>There was a problem with the request :(</Alert>
       ) : (
-        <EmptyListMessage itemType='appointments' isLoading={isLoading} />
+        <EmptyListMessage itemType='appointments' />
       )}
     </Container>
   );

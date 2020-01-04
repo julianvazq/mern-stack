@@ -25,12 +25,12 @@ ul .nav .nav-tabs {
   background-color: hsl(188, 68%, 81%);
 }
 
-.list-group-item__mood {
+.list-group-item__inline {
   padding: 1.5em 1em 0 1em;
 }
 
-.thought-container {
-  max-width: 90ch;
+.long-text-container {
+  max-width: 80ch;
   text-align: left;
   margin-top: 1.8rem;
   margin-left: 10px;
@@ -46,7 +46,7 @@ ul .nav .nav-tabs {
   font-weight: bold;
 }
 
-.remove-btn__mood {
+.remove-btn__inline {
   position: absolute;
   top: 13px;
 }
@@ -54,21 +54,26 @@ ul .nav .nav-tabs {
 .list-item-badge {
   font-size: 1rem;
   position: absolute;
-  right: 2%;
+  right: 15px;
   top: 7px;
 }
-.list-item-badge__mood {
+
+.list-item-badge__inline {
   top: 13px;
+}
+
+.date-badge {
+  right: 100px;
 }
 
 .list-item-btn {
   font-weight: bold;
   position: absolute;
-  right: 2%;
+  right: 15px;
   top: 37px;
 }
 
-.list-item-btn__mood {
+.list-item-btn__inline {
   top: 13px;
   left: 70px;
 }
@@ -76,7 +81,11 @@ ul .nav .nav-tabs {
 @media only screen and (max-width: 600px) {
   .list-item-badge {
     font-size: 0.8rem;
-    top: 10px;
+  }
+
+  .date-badge {
+    right: 15px;
+    top: 35px;
   }
 }
 

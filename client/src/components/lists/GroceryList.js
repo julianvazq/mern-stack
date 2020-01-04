@@ -31,7 +31,8 @@ const GroceryList = () => {
 
   const toggle = () => {
     setModal(!modal);
-    /* Set modal action back to "Add" in case an item update changed it to "Update" beforehand */
+    /* Set modal action back to "Add" in case an item update changed it to "Update" beforehand
+    Only do this once modal is closed (!modal) to prevent user from seeing this change */
     if (!modal && addOrUpdate === 'Update') {
       setAddOrUpdate('Add');
     }
@@ -86,9 +87,17 @@ const GroceryList = () => {
         resetFields={resetFields}
         onSubmit={onSubmit}
       />
-      {isLoading && <DelayedSpinner />}
-      {/* NESTED TERNARY OPERATOR - items.length ? <ListGroup> : error ? <Alert> : <EmptyListMessage> */}
-      {items.length ? (
+
+      {/* NESTED TERNARY OPERATOR 
+      isLoading ? <DelayedSpinner> :
+       error ? <Alert> : 
+       items.length ? <ListGroup> : 
+       <EmptyListMessage> */}
+      {isLoading ? (
+        <DelayedSpinner />
+      ) : error ? (
+        <Alert color='danger'>There was a problem with the request.</Alert>
+      ) : items.length ? (
         <ListGroup>
           <TransitionGroup className='shopping-list'>
             {items.map(({ _id, name, quantity }) => (
@@ -120,10 +129,8 @@ const GroceryList = () => {
             ))}
           </TransitionGroup>
         </ListGroup>
-      ) : error ? (
-        <Alert color='danger'>There was a problem with the request :(</Alert>
       ) : (
-        <EmptyListMessage itemType='items' isLoading={isLoading} />
+        <EmptyListMessage itemType='items' />
       )}
     </Container>
   );
