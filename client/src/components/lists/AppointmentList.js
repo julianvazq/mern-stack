@@ -132,18 +132,20 @@ const AppointmentList = () => {
                     &times;
                   </Button>
                   <p className='long-text-container'>{name}</p>
-                  <Badge
-                    color='secondary'
-                    className='list-item-badge list-item-badge__inline date-badge'
-                  >
-                    {date}
-                  </Badge>
-                  <Badge
-                    color='info'
-                    className='list-item-badge list-item-badge__inline'
-                  >
-                    {time}
-                  </Badge>
+                  <div className='badge-container'>
+                    <Badge
+                      color='secondary'
+                      className='list-item-badge list-item-badge__inline date-badge'
+                    >
+                      {date}
+                    </Badge>
+                    <Badge
+                      color='info'
+                      className='list-item-badge list-item-badge__inline'
+                    >
+                      {time}
+                    </Badge>
+                  </div>
                   <Button
                     className='list-item-btn list-item-btn__inline'
                     color='secondary'

@@ -129,18 +129,20 @@ const MoodList = () => {
                     &times;
                   </Button>
                   <p className='long-text-container'>{thought}</p>
-                  <Badge
-                    color='secondary'
-                    className='list-item-badge list-item-badge__inline date-badge'
-                  >
-                    {date.substring(0, 10)}
-                  </Badge>
-                  <Badge
-                    color={conditionalRendering(mood)}
-                    className='list-item-badge list-item-badge__inline'
-                  >
-                    Mood: {mood}
-                  </Badge>
+                  <div className='badge-container'>
+                    <Badge
+                      color='secondary'
+                      className='list-item-badge list-item-badge__inline date-badge'
+                    >
+                      {date.substring(0, 10)}
+                    </Badge>
+                    <Badge
+                      color={conditionalRendering(mood)}
+                      className='list-item-badge list-item-badge__inline'
+                    >
+                      Mood: {mood}
+                    </Badge>
+                  </div>
                   <Button
                     className='list-item-btn list-item-btn__inline'
                     color='secondary'

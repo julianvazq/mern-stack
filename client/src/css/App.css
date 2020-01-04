@@ -36,6 +36,17 @@ ul .nav .nav-tabs {
   margin-left: 10px;
 }
 
+.badge-container {
+  position: absolute;
+  display: inline-block;
+  text-align: right;
+  line-height: 1;
+  margin-right: 0.5rem;
+  height: 60%;
+  top: 11.5px;
+  right: 0;
+}
+
 /* Button */
 .btn {
   vertical-align: unset;
@@ -53,39 +64,32 @@ ul .nav .nav-tabs {
 
 .list-item-badge {
   font-size: 1rem;
-  position: absolute;
-  right: 15px;
-  top: 7px;
-}
-
-.list-item-badge__inline {
-  top: 13px;
-}
-
-.date-badge {
-  right: 100px;
+  margin-right: 0.5rem;
 }
 
 .list-item-btn {
   font-weight: bold;
   position: absolute;
-  right: 15px;
+  right: 13px;
   top: 37px;
 }
 
 .list-item-btn__inline {
   top: 13px;
-  left: 70px;
+  left: 63px;
 }
 
 @media only screen and (max-width: 600px) {
-  .list-item-badge {
-    font-size: 0.8rem;
+  .badge-container {
+    width: 100px;
   }
 
-  .date-badge {
-    right: 15px;
-    top: 35px;
+  .badge-container span {
+    display: inline-block;
+  }
+
+  .list-item-badge {
+    font-size: 0.8rem;
   }
 }
 

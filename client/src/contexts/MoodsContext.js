@@ -32,7 +32,8 @@ const MoodsContextProvider = props => {
     // Use post response to set new state
     const newState = [...moods];
     const index = moods.findIndex(mood => mood._id === id);
-    newState[index] = { _id: id, mood, thought };
+    // Keep the date property, replace the other properties
+    newState[index] = { ...newState[index], _id: id, mood, thought };
     setMoods(newState);
   };
 

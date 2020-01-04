@@ -111,11 +111,12 @@ const GroceryList = () => {
                   >
                     &times;
                   </Button>
-                  {name}{' '}
-                  <Badge color='success' className='list-item-badge'>
-                    {' '}
-                    Quantity: {quantity}
-                  </Badge>
+                  {name}
+                  <div className='badge-container' style={{ top: '10px' }}>
+                    <Badge color='success' className='list-item-badge'>
+                      Quantity: {quantity}
+                    </Badge>
+                  </div>
                   <Button
                     className='list-item-btn'
                     color='secondary'
