@@ -6,24 +6,53 @@ import {
   ModalBody,
   Form,
   FormText,
+  FormFeedback,
   FormGroup,
   Label,
   Input
 } from 'reactstrap';
+import { AppointmentsContext } from '../../contexts/AppointmentsContext';
+import { useForm } from 'react-hook-form';
 
-const ItemModal = ({
+const AppointmentModal = ({
   toggle,
   modal,
   name,
   date,
   time,
+  id,
   addOrUpdate,
-  handleNameChange,
   handleDateChange,
   handleTimeChange,
-  resetFields,
-  onSubmit
+  resetFields
 }) => {
+  /* Date and Time are handled normally with an onChange handler because
+   * they do not require client form validation
+   * -------------------------------------------------------------------
+   * Name is handled by react-hook-form because it requires validation.
+   * The value of the name form is determined by defaultValue, coming
+   * from props. This is initialized as an empty string, but passed
+   * down the item name when in editing mode
+   */
+
+  const { register, handleSubmit, errors } = useForm();
+  const { addAppt, updateAppt } = useContext(AppointmentsContext);
+
+  const onSubmit = data => {
+    const { name } = data;
+
+    if (addOrUpdate === 'Add') {
+      const input = { name, date, time };
+      addAppt(input);
+    } else {
+      const input = { id, name, date, time };
+      updateAppt(input);
+    }
+
+    resetFields();
+    toggle();
+  };
+
   return (
     <div>
       <Button
@@ -40,18 +69,36 @@ const ItemModal = ({
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>{addOrUpdate} Appointment</ModalHeader>
         <ModalBody>
-          <Form onSubmit={onSubmit}>
+          <Form onSubmit={handleSubmit(onSubmit)}>
             <FormGroup>
               <Label for='name'>Appointment</Label>
               <Input
+                invalid={
+                  errors.name &&
+                  (errors.name.type === 'required' ||
+                    errors.name.type === 'maxLength')
+                }
                 type='text'
                 name='name'
-                value={name}
                 id='name'
+                defaultValue={name}
                 placeholder='Appointment name...'
-                onChange={e => handleNameChange(e.target.value)}
+                innerRef={register({ required: true, maxLength: 50 })}
               />
-              <FormText>Required</FormText>
+              <FormFeedback>
+                {errors.name &&
+                  errors.name.type === 'maxLength' &&
+                  `Max length is 50 characters.`}
+              </FormFeedback>
+              <FormText
+                className={
+                  errors.name && errors.name.type === 'required'
+                    ? 'required-text-form'
+                    : ''
+                }
+              >
+                Required
+              </FormText>
             </FormGroup>
             <FormGroup>
               <Label for='dateInput'>Date</Label>
@@ -87,4 +134,4 @@ const ItemModal = ({
   );
 };
 
-export default ItemModal;
+export default AppointmentModal;

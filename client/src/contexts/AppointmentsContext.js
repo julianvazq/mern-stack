@@ -25,7 +25,7 @@ const AppointmentsContextProvider = props => {
   };
 
   //POST (update) request
-  const updateAppt = async ({ itemEditId: id, name, date, time }) => {
+  const updateAppt = async ({ id, name, date, time }) => {
     await axios.post(`/api/appointments/${id}`, {
       name,
       date,

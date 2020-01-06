@@ -14,15 +14,9 @@ import EmptyListMessage from '../EmpyListMessage';
 import AppointmentModal from '../modals/AppointmentModal';
 
 const AppointmentList = () => {
-  // Get items from DataContext
-  const {
-    appointments,
-    addAppt,
-    deleteAppt,
-    updateAppt,
-    isLoading,
-    error
-  } = useContext(AppointmentsContext);
+  const { appointments, isLoading, error, deleteAppt } = useContext(
+    AppointmentsContext
+  );
 
   const [modal, setModal] = useState(false);
   const [name, setName] = useState('');
@@ -40,31 +34,12 @@ const AppointmentList = () => {
     }
   };
 
-  const handleNameChange = name => {
-    setName(name);
-  };
-
   const handleDateChange = date => {
     setDate(date);
   };
 
   const handleTimeChange = time => {
     setTime(time);
-  };
-
-  const onSubmit = e => {
-    e.preventDefault();
-
-    if (addOrUpdate === 'Add') {
-      const input = { name, date, time };
-      addAppt(input);
-    } else {
-      const input = { itemEditId, name, date, time };
-      updateAppt(input);
-    }
-
-    resetFields();
-    toggle();
   };
 
   const resetFields = () => {
@@ -83,16 +58,6 @@ const AppointmentList = () => {
     setItemEditId(id);
   };
 
-  const conditionalRendering = (date, time) => {
-    if (date && time) {
-      return `${date} at ${time}`;
-    } else if (date) {
-      return date;
-    } else {
-      return time;
-    }
-  };
-
   return (
     <Container>
       <AppointmentModal
@@ -100,13 +65,12 @@ const AppointmentList = () => {
         name={name}
         date={date}
         time={time}
+        id={itemEditId}
         toggle={toggle}
         addOrUpdate={addOrUpdate}
-        handleNameChange={handleNameChange}
         handleDateChange={handleDateChange}
         handleTimeChange={handleTimeChange}
         resetFields={resetFields}
-        onSubmit={onSubmit}
       />
       {/* NESTED TERNARY OPERATOR 
       isLoading ? <DelayedSpinner> :
@@ -121,7 +85,7 @@ const AppointmentList = () => {
         <ListGroup>
           <TransitionGroup className='shopping-list'>
             {appointments.map(({ _id, name, date, time }) => (
-              <CSSTransition key={_id} timeout={500} classNames='fade'>
+              <CSSTransition key={_id} timeout={400} classNames='fade'>
                 <ListGroupItem color='info' className='list-group-item__inline'>
                   <Button
                     className='remove-btn remove-btn__inline'

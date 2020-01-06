@@ -115,7 +115,7 @@ const MoodList = () => {
         <ListGroup>
           <TransitionGroup className='mood-list'>
             {moods.map(({ _id, mood, thought, date }) => (
-              <CSSTransition key={_id} timeout={500} classNames='fade'>
+              <CSSTransition key={_id} timeout={400} classNames='fade'>
                 <ListGroupItem
                   className='list-group-item__inline'
                   color={conditionalRendering(mood)}

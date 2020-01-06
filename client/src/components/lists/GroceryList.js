@@ -15,7 +15,7 @@ import ItemModal from '../modals/ItemModal';
 
 const GroceryList = () => {
   // Get items from GroceryContext
-  const { items, deleteItem, isLoading, error } = useContext(GroceryContext);
+  const { items, isLoading, error, deleteItem } = useContext(GroceryContext);
   const [modal, setModal] = useState(false);
   const [name, setName] = useState('');
   const [quantity, setQuantity] = useState(1);

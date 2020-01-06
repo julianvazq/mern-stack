@@ -24,12 +24,25 @@ const ItemModal = ({
   resetFields,
   setQuantity
 }) => {
+  /* Quantity is handled normally with an onChange handler because
+   * it does not require client form validation, unless the user
+   * selects "Other", which renders a new input element.
+   * The new custom quantity is stored in the local "otherQuantity" state,
+   * and is then used for submission instead of the "quantity" state.
+   * -------------------------------------------------------------------
+   * Name is handled by react-hook-form because it requires validation.
+   * The value of the name form is determined by defaultValue, coming
+   * from props. This is initialized as an empty string, but passed
+   * down the item name when in editing mode
+   */
+
   const { register, handleSubmit, errors } = useForm();
   const { addItem, updateItem } = useContext(GroceryContext);
   const [otherQuantity, setOtherQuantity] = useState(null);
 
   const onSubmit = data => {
     const { name, quantity } = data;
+    // If custom quantity defined by user, use "otherQuantity", otherwise use "quantity"
     const quantityInput = otherQuantity ? otherQuantity : quantity;
 
     if (addOrUpdate === 'Add') {
