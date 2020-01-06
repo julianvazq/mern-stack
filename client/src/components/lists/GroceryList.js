@@ -15,14 +15,7 @@ import ItemModal from '../modals/ItemModal';
 
 const GroceryList = () => {
   // Get items from GroceryContext
-  const {
-    items,
-    deleteItem,
-    addItem,
-    updateItem,
-    isLoading,
-    error
-  } = useContext(GroceryContext);
+  const { items, deleteItem, isLoading, error } = useContext(GroceryContext);
   const [modal, setModal] = useState(false);
   const [name, setName] = useState('');
   const [quantity, setQuantity] = useState(1);
@@ -32,38 +25,10 @@ const GroceryList = () => {
   const toggle = () => {
     setModal(!modal);
     /* Set modal action back to "Add" in case an item update changed it to "Update" beforehand
-    Only do this once modal is closed (!modal) to prevent user from seeing this change */
+    Only do this once modal is closed (!modal) to prevent user from seeing the change */
     if (!modal && addOrUpdate === 'Update') {
       setAddOrUpdate('Add');
     }
-  };
-
-  const handleNameChange = e => {
-    e.preventDefault();
-    setName(e.target.value);
-  };
-
-  const handleQuantityChange = e => {
-    setQuantity(e.target.value);
-  };
-
-  const onSubmit = e => {
-    e.preventDefault();
-    if (addOrUpdate === 'Add') {
-      const input = { name, quantity };
-      addItem(input);
-    } else {
-      const input = { itemEditId, name, quantity };
-      updateItem(input);
-    }
-    resetFields();
-    toggle();
-  };
-
-  const resetFields = () => {
-    setName('');
-    setQuantity(1);
-    setItemEditId(null);
   };
 
   const editItem = (id, name, quantity) => {
@@ -74,6 +39,12 @@ const GroceryList = () => {
     setItemEditId(id);
   };
 
+  const resetFields = () => {
+    setName('');
+    setQuantity(1);
+    setItemEditId(null);
+  };
+
   return (
     <Container>
       <ItemModal
@@ -82,10 +53,9 @@ const GroceryList = () => {
         quantity={quantity}
         addOrUpdate={addOrUpdate}
         toggle={toggle}
-        handleNameChange={handleNameChange}
-        handleQuantityChange={handleQuantityChange}
         resetFields={resetFields}
-        onSubmit={onSubmit}
+        id={itemEditId}
+        setQuantity={setQuantity}
       />
 
       {/* NESTED TERNARY OPERATOR 

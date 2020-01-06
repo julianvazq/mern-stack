@@ -13,25 +13,25 @@ const GroceryContextProvider = props => {
   const addItem = async input => {
     const res = await axios.post(`/api/items`, {
       name: input.name,
-      quantity: input.quantity
+      quantity: input.quantityInput
     });
     // Use post response to set new state
-    setItems(() => {
+    setItems(items => {
       const { _id, name, quantity } = res.data; // Set inside function to avoid "Identifier 'name' has already been declared"
       return [...items, { _id, name, quantity }];
     });
   };
 
   //PUT request
-  const updateItem = async ({ itemEditId: id, name, quantity }) => {
+  const updateItem = async ({ id, name, quantityInput }) => {
     await axios.post(`/api/items/${id}`, {
       name: name,
-      quantity: quantity
+      quantity: quantityInput
     });
-    // Use post response to set new state
+    // Update current state
     const newState = [...items];
     const index = items.findIndex(item => item._id === id);
-    newState[index] = { _id: id, name, quantity };
+    newState[index] = { _id: id, name, quantity: quantityInput };
     setItems(newState);
   };
 

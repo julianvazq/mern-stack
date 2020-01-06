@@ -1,27 +1,49 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, Fragment } from 'react';
 import {
   Button,
   Modal,
   ModalHeader,
   ModalBody,
   Form,
+  FormFeedback,
   FormText,
   FormGroup,
   Label,
   Input
 } from 'reactstrap';
+import { GroceryContext } from '../../contexts/GroceryContext';
+import { useForm } from 'react-hook-form';
 
 const ItemModal = ({
-  toggle,
-  modal,
   name,
   quantity,
+  id,
+  toggle,
+  modal,
   addOrUpdate,
-  handleNameChange,
-  handleQuantityChange,
   resetFields,
-  onSubmit
+  setQuantity
 }) => {
+  const { register, handleSubmit, errors } = useForm();
+  const { addItem, updateItem } = useContext(GroceryContext);
+  const [otherQuantity, setOtherQuantity] = useState(null);
+
+  const onSubmit = data => {
+    const { name, quantity } = data;
+    const quantityInput = otherQuantity ? otherQuantity : quantity;
+
+    if (addOrUpdate === 'Add') {
+      const input = { name, quantityInput };
+      addItem(input);
+    } else {
+      const input = { id, name, quantityInput };
+      updateItem(input);
+    }
+    setOtherQuantity(null);
+    resetFields();
+    toggle();
+  };
+
   return (
     <div>
       <Button
@@ -38,28 +60,47 @@ const ItemModal = ({
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>{addOrUpdate} Item</ModalHeader>
         <ModalBody>
-          <Form onSubmit={onSubmit}>
+          <Form onSubmit={handleSubmit(onSubmit)}>
             <FormGroup>
               <FormGroup>
                 <Label for='item'>Item</Label>
                 <Input
+                  invalid={
+                    errors.name &&
+                    (errors.name.type === 'required' ||
+                      errors.name.type === 'maxLength')
+                  }
                   type='text'
                   name='name'
-                  value={name}
+                  defaultValue={name}
                   id='item'
                   placeholder={`${addOrUpdate} grocery item...`}
-                  onChange={handleNameChange}
+                  innerRef={register({ required: true, maxLength: 50 })}
                 />
-                <FormText>Required</FormText>
+                <FormFeedback>
+                  {errors.name &&
+                    errors.name.type === 'maxLength' &&
+                    `Max length is 50 characters.`}
+                </FormFeedback>
+                <FormText
+                  className={
+                    errors.name && errors.name.type === 'required'
+                      ? 'required-text-form'
+                      : ''
+                  }
+                >
+                  Required
+                </FormText>
               </FormGroup>
               <FormGroup>
-                <Label for='exampleSelect'>Quantity</Label>
+                <Label for='quantityInput'>Quantity</Label>
                 <Input
                   type='select'
-                  value={quantity}
+                  defaultValue={quantity}
                   name='quantity'
                   id='quantityInput'
-                  onChange={handleQuantityChange}
+                  innerRef={register}
+                  onChange={e => setQuantity(e.target.value)}
                 >
                   <option>1</option>
                   <option>2</option>
@@ -71,10 +112,30 @@ const ItemModal = ({
                   <option>8</option>
                   <option>9</option>
                   <option>10</option>
+                  <option>Other</option>
                 </Input>
+                {quantity === 'Other' && (
+                  <Fragment>
+                    <Input
+                      type='number'
+                      name='otherInput'
+                      onChange={e => setOtherQuantity(e.target.value)}
+                      style={{ width: '80px', marginTop: '1rem' }}
+                      innerRef={register({ min: 1, max: 99 })}
+                    />
+                    <FormFeedback>
+                      {errors.otherInput && 'Enter a number between 1 and 99.'}
+                    </FormFeedback>
+                  </Fragment>
+                )}
                 <FormText>Optional</FormText>
               </FormGroup>
-              <Button color='dark' style={{ marginTop: '2rem' }} block>
+              <Button
+                color='dark'
+                type='submit'
+                style={{ marginTop: '2rem' }}
+                block
+              >
                 {addOrUpdate} Item
               </Button>
             </FormGroup>
