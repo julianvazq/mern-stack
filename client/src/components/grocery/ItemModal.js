@@ -125,9 +125,9 @@ const ItemModal = ({
                   <option>8</option>
                   <option>9</option>
                   <option>10</option>
-                  <option>Other</option>
+                  <option>Other...</option>
                 </Input>
-                {quantity === 'Other' && (
+                {quantity === 'Other...' && (
                   <div>
                     <Input
                       type='number'

@@ -23,15 +23,15 @@ const GroceryContextProvider = props => {
   };
 
   //PUT request
-  const updateItem = async ({ id, name, quantityInput }) => {
+  const updateItem = async ({ id, name, quantityInput: quantity }) => {
     await axios.post(`/api/items/${id}`, {
       name: name,
-      quantity: quantityInput
+      quantity: quantity
     });
     // Update current state
     const newState = [...items];
     const index = items.findIndex(item => item._id === id);
-    newState[index] = { _id: id, name, quantity: quantityInput };
+    newState[index] = { _id: id, name, quantity };
     setItems(newState);
   };
 

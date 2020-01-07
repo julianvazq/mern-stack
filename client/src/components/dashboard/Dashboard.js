@@ -6,6 +6,7 @@ import { AppointmentsContext } from '../appointments/AppointmentsContext';
 import { MoodsContext } from '../moods/MoodsContext';
 import { GoalsContext } from '../goals/GoalsContext';
 import { BooksContext } from '../books/BooksContext';
+import { MoviesContext } from '../movies/MoviesContext';
 
 const Dashboard = () => {
   const { isLoading: groceryLoading, items, deleteItem } = useContext(
@@ -22,6 +23,9 @@ const Dashboard = () => {
   );
   const { isLoading: booksLoading, books, deleteBook } = useContext(
     BooksContext
+  );
+  const { isLoading: moviesLoading, movies, deleteMovie } = useContext(
+    MoviesContext
   );
 
   return (
@@ -65,6 +69,14 @@ const Dashboard = () => {
         listItems={books}
         delete={deleteBook}
         tab='5'
+      />
+      <CustomCard
+        title='Movies'
+        imgPath={require('../../images/books.jpg')}
+        isLoading={moviesLoading}
+        listItems={movies}
+        delete={deleteMovie}
+        tab='6'
       />
     </CardDeck>
   );

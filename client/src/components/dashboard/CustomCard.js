@@ -29,8 +29,8 @@ const CustomCard = props => {
       if (item.thought.length < MAX_CHAR_LENGTH) {
         return item.thought;
       }
-      return item.thought.substring(0, MAX_CHAR_LENGTH);
-    } else if (titleLowerCase === 'books') {
+      return `${item.thought.substring(0, MAX_CHAR_LENGTH)}...`;
+    } else if (titleLowerCase === 'books' || titleLowerCase === 'movies') {
       if (item.author) {
         return `${item.title} by ${item.author}`;
       }

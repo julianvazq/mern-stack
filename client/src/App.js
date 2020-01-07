@@ -8,6 +8,8 @@ import AppointmentsContextProvider from './components/appointments/AppointmentsC
 import MoodsContextProvider from './components/moods/MoodsContext';
 import GoalsContextProvider from './components/goals/GoalsContext';
 import BooksContextProvider from './components/books/BooksContext';
+import MoviesContextProvider from './components/movies/MoviesContext';
+
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -33,17 +35,19 @@ function App() {
                 <MoodsContextProvider>
                   <GoalsContextProvider>
                     <BooksContextProvider>
-                      <Switch>
-                        <Route path='/' exact component={Dashboard} />
-                        <Route path='/tracker' exact component={Tabs} />
-                        <Route
-                          render={() => (
-                            <h2 style={{ textAlign: 'center' }}>
-                              404 Page Not Found
-                            </h2>
-                          )}
-                        />
-                      </Switch>
+                      <MoviesContextProvider>
+                        <Switch>
+                          <Route path='/' exact component={Dashboard} />
+                          <Route path='/tracker' exact component={Tabs} />
+                          <Route
+                            render={() => (
+                              <h2 style={{ textAlign: 'center' }}>
+                                404 Page Not Found
+                              </h2>
+                            )}
+                          />
+                        </Switch>
+                      </MoviesContextProvider>
                     </BooksContextProvider>
                   </GoalsContextProvider>
                 </MoodsContextProvider>

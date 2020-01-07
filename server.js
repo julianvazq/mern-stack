@@ -6,6 +6,7 @@ const appointments = require('./routes/api/appointments');
 const moods = require('./routes/api/moods');
 const goals = require('./routes/api/goals');
 const books = require('./routes/api/books');
+const movies = require('./routes/api/movies');
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use('/api/appointments', appointments);
 app.use('/api/moods', moods);
 app.use('/api/goals', goals);
 app.use('/api/books', books);
+app.use('/api/movies', movies);
 
 const port = process.env.PORT || 5000;
 

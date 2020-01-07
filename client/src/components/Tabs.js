@@ -5,6 +5,7 @@ import AppointmentList from './appointments/AppointmentList';
 import MoodList from './moods/MoodList';
 import GoalList from './goals/GoalList';
 import BookList from './books/BookList';
+import MovieList from './movies/MovieList';
 
 import {
   TabContent,
@@ -82,6 +83,16 @@ const Tabs = () => {
               Books
             </NavLink>
           </NavItem>
+          <NavItem>
+            <NavLink
+              className={classnames({ active: activeTab === '6' })}
+              onClick={() => {
+                toggleTab('6');
+              }}
+            >
+              Movies
+            </NavLink>
+          </NavItem>
         </Nav>
         <TabContent activeTab={activeTab}>
           <TabPane tabId='1'>
@@ -118,6 +129,13 @@ const Tabs = () => {
             <Row>
               <Col sm='12'>
                 <BookList />
+              </Col>
+            </Row>
+          </TabPane>
+          <TabPane tabId='6'>
+            <Row>
+              <Col sm='12'>
+                <MovieList />
               </Col>
             </Row>
           </TabPane>
