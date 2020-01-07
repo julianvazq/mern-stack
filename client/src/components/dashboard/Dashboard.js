@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Container, CardDeck } from 'reactstrap';
+import { CardDeck } from 'reactstrap';
 import CustomCard from './CustomCard';
 import { GroceryContext } from '../../contexts/GroceryContext';
 import { AppointmentsContext } from '../../contexts/AppointmentsContext';
@@ -17,7 +17,6 @@ const Dashboard = () => {
   );
 
   return (
-    // <Container style={{ margin: '4rem 0 3rem 0' }}>
     <CardDeck>
       <CustomCard
         title='Groceries'
@@ -42,7 +41,6 @@ const Dashboard = () => {
       />
     </CardDeck>
     // <CardDeck style={{ marginTop: '1.5rem' }}></CardDeck>
-    // </Container>
   );
 };
 

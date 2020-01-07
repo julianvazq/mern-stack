@@ -6,7 +6,6 @@ import ActiveTabContextProvider from './contexts/ActiveTabContext';
 import GroceryContextProvider from './contexts/GroceryContext';
 import AppointmentsContextProvider from './contexts/AppointmentsContext';
 import MoodsContextProvider from './contexts/MoodsContext';
-import { Container } from 'reactstrap';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';

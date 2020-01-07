@@ -20,7 +20,7 @@ const useDataHandler = url => {
       }
     };
     fetchData();
-  }, []);
+  }, [url]);
 
   return [response, error];
 };

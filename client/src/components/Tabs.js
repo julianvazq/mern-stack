@@ -11,8 +11,6 @@ import {
   Nav,
   NavItem,
   NavLink,
-  Button,
-  Fade,
   Row,
   Col
 } from 'reactstrap';
