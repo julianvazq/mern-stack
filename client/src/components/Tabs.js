@@ -1,8 +1,10 @@
 import React, { useContext } from 'react';
 import { ActiveTabContext } from '../contexts/ActiveTabContext';
-import GroceryList from './lists/GroceryList';
-import AppointmentList from './lists/AppointmentList';
-import MoodList from './lists/MoodList';
+import GroceryList from './grocery/GroceryList';
+import AppointmentList from './appointments/AppointmentList';
+import MoodList from './moods/MoodList';
+import GoalList from './goals/GoalList';
+import BookList from './books/BookList';
 
 import {
   TabContent,
@@ -15,7 +17,6 @@ import {
   Col
 } from 'reactstrap';
 import classnames from 'classnames';
-import GoalList from './lists/GoalList';
 
 const Tabs = () => {
   const { activeTab, toggleTab } = useContext(ActiveTabContext);
@@ -71,6 +72,16 @@ const Tabs = () => {
               Goals
             </NavLink>
           </NavItem>
+          <NavItem>
+            <NavLink
+              className={classnames({ active: activeTab === '5' })}
+              onClick={() => {
+                toggleTab('5');
+              }}
+            >
+              Books
+            </NavLink>
+          </NavItem>
         </Nav>
         <TabContent activeTab={activeTab}>
           <TabPane tabId='1'>
@@ -100,6 +111,13 @@ const Tabs = () => {
             <Row>
               <Col sm='12'>
                 <GoalList />
+              </Col>
+            </Row>
+          </TabPane>
+          <TabPane tabId='5'>
+            <Row>
+              <Col sm='12'>
+                <BookList />
               </Col>
             </Row>
           </TabPane>

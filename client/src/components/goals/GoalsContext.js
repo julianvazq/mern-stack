@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
-import useDataHandler from '../components/customHooks/useDataHandler';
+import useDataHandler from '../customHooks/useDataHandler';
 
 export const GoalsContext = createContext();
 

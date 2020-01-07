@@ -15,13 +15,13 @@ router.get('/', (req, res) => {
 //@route POST api/goals
 //@desc Create A Goal
 router.post('/', (req, res) => {
-  const newAppointment = new Goal({
+  const newGoal = new Goal({
     name: req.body.name,
     timeline: req.body.timeline,
     deadline: req.body.deadline
   });
 
-  newAppointment.save().then(goal => res.json(goal));
+  newGoal.save().then(goal => res.json(goal));
 });
 
 //@route POST api/goals/

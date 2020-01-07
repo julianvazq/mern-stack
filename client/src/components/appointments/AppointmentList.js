@@ -8,18 +8,20 @@ import {
   Badge
 } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { GoalsContext } from '../../contexts/GoalsContext';
+import { AppointmentsContext } from './AppointmentsContext';
 import DelayedSpinner from '../DelayedSpinner';
 import EmptyListMessage from '../EmpyListMessage';
-import GoalModal from '../modals/GoalModal';
+import AppointmentModal from './AppointmentModal';
 
-const GoalList = () => {
-  const { goals, isLoading, error, deleteGoal } = useContext(GoalsContext);
+const AppointmentList = () => {
+  const { appointments, isLoading, error, deleteAppt } = useContext(
+    AppointmentsContext
+  );
 
   const [modal, setModal] = useState(false);
   const [name, setName] = useState('');
-  const [timeline, setTimeline] = useState('Short-term');
-  const [deadline, setDeadline] = useState('');
+  const [date, setDate] = useState('');
+  const [time, setTime] = useState('');
   const [addOrUpdate, setAddOrUpdate] = useState('Add');
   const [itemEditId, setItemEditId] = useState(null);
 
@@ -32,67 +34,64 @@ const GoalList = () => {
     }
   };
 
-  const handleTimelineChange = timeline => {
-    setTimeline(timeline);
+  const handleDateChange = date => {
+    setDate(date);
   };
 
-  const handleDeadlineChange = deadline => {
-    setDeadline(deadline);
+  const handleTimeChange = time => {
+    setTime(time);
   };
 
   const resetFields = () => {
     setName('');
-    setTimeline('Short-term');
-    setDeadline('');
+    setDate('');
+    setTime('');
     setItemEditId(null);
   };
 
-  const editGoal = (id, name, timeline, deadline) => {
+  const editAppt = (id, name, date, time) => {
     toggle();
     setAddOrUpdate('Update');
     setName(name);
-    setTimeline(timeline);
-    setDeadline(deadline);
+    setDate(date);
+    setTime(time);
     setItemEditId(id);
   };
 
   return (
     <Container>
-      <GoalModal
+      <AppointmentModal
         modal={modal}
         name={name}
-        timeline={timeline}
-        deadline={deadline}
+        date={date}
+        time={time}
         id={itemEditId}
         toggle={toggle}
         addOrUpdate={addOrUpdate}
-        handleTimelineChange={handleTimelineChange}
-        handleDeadlineChange={handleDeadlineChange}
+        handleDateChange={handleDateChange}
+        handleTimeChange={handleTimeChange}
         resetFields={resetFields}
       />
       {/* NESTED TERNARY OPERATOR 
       isLoading ? <DelayedSpinner> :
        error ? <Alert> : 
-       goals.length ? <ListGroup> : 
+       appointments.length ? <ListGroup> : 
        <EmptyListMessage> */}
       {isLoading ? (
         <DelayedSpinner />
       ) : error ? (
         <Alert color='danger'>There was a problem with the request.</Alert>
-      ) : goals.length ? (
+      ) : appointments.length ? (
         <ListGroup>
           <TransitionGroup className='shopping-list'>
-            {goals.map(({ _id, name, timeline, deadline }) => (
+            {appointments.map(({ _id, name, date, time }) => (
               <CSSTransition key={_id} timeout={400} classNames='fade'>
-                <ListGroupItem
-                  color='primary'
-                  className='list-group-item__inline'
-                >
+                <ListGroupItem color='info' className='list-group-item__inline'>
                   <Button
                     className='remove-btn remove-btn__inline'
                     color='danger'
                     size='sm'
-                    onClick={() => deleteGoal(_id)}
+                    onClick={() => deleteAppt(_id)}
                   >
                     &times;
                   </Button>
@@ -102,20 +101,20 @@ const GoalList = () => {
                       color='secondary'
                       className='list-item-badge list-item-badge__inline date-badge'
                     >
-                      {deadline}
+                      {date}
                     </Badge>
                     <Badge
-                      color='primary'
+                      color='info'
                       className='list-item-badge list-item-badge__inline'
                     >
-                      {timeline}
+                      {time}
                     </Badge>
                   </div>
                   <Button
                     className='list-item-btn list-item-btn__inline'
                     color='secondary'
                     size='sm'
-                    onClick={() => editGoal(_id, name, timeline, deadline)}
+                    onClick={() => editAppt(_id, name, date, time)}
                   >
                     Edit
                   </Button>
@@ -125,10 +124,10 @@ const GoalList = () => {
           </TransitionGroup>
         </ListGroup>
       ) : (
-        <EmptyListMessage itemType='goals' />
+        <EmptyListMessage itemType='appointments' />
       )}
     </Container>
   );
 };
 
-export default GoalList;
+export default AppointmentList;

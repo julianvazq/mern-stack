@@ -1,27 +1,17 @@
 import React, { useState, useContext } from 'react';
-import {
-  Container,
-  ListGroup,
-  ListGroupItem,
-  Button,
-  Alert,
-  Badge
-} from 'reactstrap';
+import { Container, ListGroup, ListGroupItem, Button, Alert } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { AppointmentsContext } from '../../contexts/AppointmentsContext';
+import { BooksContext } from './BooksContext';
 import DelayedSpinner from '../DelayedSpinner';
 import EmptyListMessage from '../EmpyListMessage';
-import AppointmentModal from '../modals/AppointmentModal';
+import BookModal from './BookModal';
 
-const AppointmentList = () => {
-  const { appointments, isLoading, error, deleteAppt } = useContext(
-    AppointmentsContext
-  );
+const BookList = () => {
+  const { books, isLoading, error, deleteBook } = useContext(BooksContext);
 
   const [modal, setModal] = useState(false);
-  const [name, setName] = useState('');
-  const [date, setDate] = useState('');
-  const [time, setTime] = useState('');
+  const [title, setTitle] = useState('');
+  const [author, setAuthor] = useState('');
   const [addOrUpdate, setAddOrUpdate] = useState('Add');
   const [itemEditId, setItemEditId] = useState(null);
 
@@ -34,87 +24,63 @@ const AppointmentList = () => {
     }
   };
 
-  const handleDateChange = date => {
-    setDate(date);
-  };
-
-  const handleTimeChange = time => {
-    setTime(time);
-  };
-
   const resetFields = () => {
-    setName('');
-    setDate('');
-    setTime('');
+    setTitle('');
+    setAuthor('');
+
     setItemEditId(null);
   };
 
-  const editAppt = (id, name, date, time) => {
+  const editBook = (id, title, author) => {
     toggle();
     setAddOrUpdate('Update');
-    setName(name);
-    setDate(date);
-    setTime(time);
+    setTitle(title);
+    setAuthor(author);
     setItemEditId(id);
   };
 
   return (
     <Container>
-      <AppointmentModal
+      <BookModal
         modal={modal}
-        name={name}
-        date={date}
-        time={time}
+        title={title}
+        author={author}
         id={itemEditId}
         toggle={toggle}
         addOrUpdate={addOrUpdate}
-        handleDateChange={handleDateChange}
-        handleTimeChange={handleTimeChange}
         resetFields={resetFields}
       />
       {/* NESTED TERNARY OPERATOR 
       isLoading ? <DelayedSpinner> :
        error ? <Alert> : 
-       appointments.length ? <ListGroup> : 
+       books.length ? <ListGroup> : 
        <EmptyListMessage> */}
       {isLoading ? (
         <DelayedSpinner />
       ) : error ? (
         <Alert color='danger'>There was a problem with the request.</Alert>
-      ) : appointments.length ? (
+      ) : books.length ? (
         <ListGroup>
           <TransitionGroup className='shopping-list'>
-            {appointments.map(({ _id, name, date, time }) => (
+            {books.map(({ _id, title, author }) => (
               <CSSTransition key={_id} timeout={400} classNames='fade'>
                 <ListGroupItem color='info' className='list-group-item__inline'>
                   <Button
                     className='remove-btn remove-btn__inline'
                     color='danger'
                     size='sm'
-                    onClick={() => deleteAppt(_id)}
+                    onClick={() => deleteBook(_id)}
                   >
                     &times;
                   </Button>
-                  <p className='long-text-container'>{name}</p>
-                  <div className='badge-container'>
-                    <Badge
-                      color='secondary'
-                      className='list-item-badge list-item-badge__inline date-badge'
-                    >
-                      {date}
-                    </Badge>
-                    <Badge
-                      color='info'
-                      className='list-item-badge list-item-badge__inline'
-                    >
-                      {time}
-                    </Badge>
-                  </div>
+                  <p className='long-text-container'>
+                    {title} {author && `by ${author}`}
+                  </p>
                   <Button
                     className='list-item-btn list-item-btn__inline'
                     color='secondary'
                     size='sm'
-                    onClick={() => editAppt(_id, name, date, time)}
+                    onClick={() => editBook(_id, title, author)}
                   >
                     Edit
                   </Button>
@@ -124,10 +90,10 @@ const AppointmentList = () => {
           </TransitionGroup>
         </ListGroup>
       ) : (
-        <EmptyListMessage itemType='appointments' />
+        <EmptyListMessage itemType='books' />
       )}
     </Container>
   );
 };
 
-export default AppointmentList;
+export default BookList;

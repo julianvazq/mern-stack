@@ -1,10 +1,11 @@
-import React, { useContext, Fragment } from 'react';
+import React, { useContext } from 'react';
 import { CardDeck } from 'reactstrap';
 import CustomCard from './CustomCard';
-import { GroceryContext } from '../../contexts/GroceryContext';
-import { AppointmentsContext } from '../../contexts/AppointmentsContext';
-import { MoodsContext } from '../../contexts/MoodsContext';
-import { GoalsContext } from '../../contexts/GoalsContext';
+import { GroceryContext } from '../grocery/GroceryContext';
+import { AppointmentsContext } from '../appointments/AppointmentsContext';
+import { MoodsContext } from '../moods/MoodsContext';
+import { GoalsContext } from '../goals/GoalsContext';
+import { BooksContext } from '../books/BooksContext';
 
 const Dashboard = () => {
   const { isLoading: groceryLoading, items, deleteItem } = useContext(
@@ -18,6 +19,9 @@ const Dashboard = () => {
   );
   const { isLoading: goalsLoading, goals, deleteGoal } = useContext(
     GoalsContext
+  );
+  const { isLoading: booksLoading, books, deleteBook } = useContext(
+    BooksContext
   );
 
   return (
@@ -48,27 +52,19 @@ const Dashboard = () => {
       />
       <CustomCard
         title='Goals'
-        imgPath={require('../../images/goals1.jpg')}
+        imgPath={require('../../images/goals.jpg')}
         isLoading={goalsLoading}
         listItems={goals}
         delete={deleteGoal}
         tab='4'
       />
       <CustomCard
-        title='Goals'
-        imgPath={require('../../images/goals1.jpg')}
-        isLoading={goalsLoading}
-        listItems={goals}
-        delete={deleteGoal}
-        tab='4'
-      />
-      <CustomCard
-        title='Goals'
-        imgPath={require('../../images/goals1.jpg')}
-        isLoading={goalsLoading}
-        listItems={goals}
-        delete={deleteGoal}
-        tab='4'
+        title='Books'
+        imgPath={require('../../images/books.jpg')}
+        isLoading={booksLoading}
+        listItems={books}
+        delete={deleteBook}
+        tab='5'
       />
     </CardDeck>
   );

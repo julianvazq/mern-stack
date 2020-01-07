@@ -5,6 +5,7 @@ const items = require('./routes/api/items');
 const appointments = require('./routes/api/appointments');
 const moods = require('./routes/api/moods');
 const goals = require('./routes/api/goals');
+const books = require('./routes/api/books');
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use('/api/items', items);
 app.use('/api/appointments', appointments);
 app.use('/api/moods', moods);
 app.use('/api/goals', goals);
+app.use('/api/books', books);
 
 const port = process.env.PORT || 5000;
 

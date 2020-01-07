@@ -11,7 +11,7 @@ import {
   Label,
   Input
 } from 'reactstrap';
-import { GoalsContext } from '../../contexts/GoalsContext';
+import { GoalsContext } from './GoalsContext';
 import { useForm } from 'react-hook-form';
 
 const GoalModal = ({

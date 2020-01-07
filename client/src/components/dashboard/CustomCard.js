@@ -18,11 +18,27 @@ import DelayedSpinner from '../DelayedSpinner';
 
 const CustomCard = props => {
   const { title, imgPath, isLoading, listItems } = props;
-  const MAX_CHAR_LENGTH = 80;
   const { toggleTab } = useContext(ActiveTabContext);
+  const MAX_CHAR_LENGTH = 80;
 
   const titleLowerCase = title.toLowerCase();
   let countItemsShowing = 0;
+
+  const conditionalText = item => {
+    if (titleLowerCase === 'moods') {
+      if (item.thought.length < MAX_CHAR_LENGTH) {
+        return item.thought;
+      }
+      return item.thought.substring(0, MAX_CHAR_LENGTH);
+    } else if (titleLowerCase === 'books') {
+      if (item.author) {
+        return `${item.title} by ${item.author}`;
+      }
+      return item.title;
+    } else {
+      return item.name;
+    }
+  };
 
   return (
     <Card>
@@ -45,7 +61,7 @@ const CustomCard = props => {
           backgroundPosition: '50% 50%'
         }}
         src={imgPath}
-        alt='Card image cap'
+        alt={`Tab ${props.tab} image.`}
       />
       {isLoading ? (
         <Alert color='success' style={{ textAlign: 'center' }}>
@@ -55,7 +71,10 @@ const CustomCard = props => {
         <Alert color='success'>
           <Badge
             color={listItems.length ? 'success' : 'secondary'}
-            style={{ fontSize: '1rem', marginRight: '0.5rem' }}
+            style={{
+              fontSize: '1rem',
+              marginRight: '0.5rem'
+            }}
           >
             {listItems.length}
           </Badge>{' '}
@@ -95,11 +114,7 @@ const CustomCard = props => {
                     >
                       &times;
                     </Button>
-                    {titleLowerCase !== 'moods'
-                      ? item.name
-                      : item.thought.length < MAX_CHAR_LENGTH
-                      ? item.thought
-                      : `${item.thought.substring(0, MAX_CHAR_LENGTH)}...`}
+                    {conditionalText(item)}
                   </ListGroupItem>
                 </CSSTransition>
               );

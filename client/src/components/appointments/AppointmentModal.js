@@ -11,7 +11,7 @@ import {
   Label,
   Input
 } from 'reactstrap';
-import { AppointmentsContext } from '../../contexts/AppointmentsContext';
+import { AppointmentsContext } from './AppointmentsContext';
 import { useForm } from 'react-hook-form';
 
 const AppointmentModal = ({

@@ -8,10 +8,10 @@ import {
   Alert
 } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { GroceryContext } from '../../contexts/GroceryContext';
+import { GroceryContext } from './GroceryContext';
 import DelayedSpinner from '../DelayedSpinner';
 import EmptyListMessage from '../EmpyListMessage';
-import ItemModal from '../modals/ItemModal';
+import ItemModal from './ItemModal';
 
 const GroceryList = () => {
   // Get items from GroceryContext

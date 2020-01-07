@@ -11,7 +11,7 @@ import {
   Label,
   Input
 } from 'reactstrap';
-import { GroceryContext } from '../../contexts/GroceryContext';
+import { GroceryContext } from './GroceryContext';
 import { useForm } from 'react-hook-form';
 
 const ItemModal = ({
@@ -128,18 +128,18 @@ const ItemModal = ({
                   <option>Other</option>
                 </Input>
                 {quantity === 'Other' && (
-                  <Fragment>
+                  <div>
                     <Input
                       type='number'
                       name='otherInput'
+                      innerRef={register({ min: 1, max: 99 })}
                       onChange={e => setOtherQuantity(e.target.value)}
                       style={{ width: '80px', marginTop: '1rem' }}
-                      innerRef={register({ min: 1, max: 99 })}
                     />
-                    <FormFeedback>
+                    <FormFeedback className={errors.otherInput && 'd-block'}>
                       {errors.otherInput && 'Enter a number between 1 and 99.'}
                     </FormFeedback>
-                  </Fragment>
+                  </div>
                 )}
                 <FormText>Optional</FormText>
               </FormGroup>

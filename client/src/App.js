@@ -3,10 +3,11 @@ import AppNavBar from './components/AppNavbar';
 import Dashboard from './components/dashboard/Dashboard';
 import Tabs from './components/Tabs';
 import ActiveTabContextProvider from './contexts/ActiveTabContext';
-import GroceryContextProvider from './contexts/GroceryContext';
-import AppointmentsContextProvider from './contexts/AppointmentsContext';
-import MoodsContextProvider from './contexts/MoodsContext';
-import GoalsContextProvider from './contexts/GoalsContext';
+import GroceryContextProvider from './components/grocery/GroceryContext';
+import AppointmentsContextProvider from './components/appointments/AppointmentsContext';
+import MoodsContextProvider from './components/moods/MoodsContext';
+import GoalsContextProvider from './components/goals/GoalsContext';
+import BooksContextProvider from './components/books/BooksContext';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -31,17 +32,19 @@ function App() {
               <AppointmentsContextProvider>
                 <MoodsContextProvider>
                   <GoalsContextProvider>
-                    <Switch>
-                      <Route path='/' exact component={Dashboard} />
-                      <Route path='/tracker' exact component={Tabs} />
-                      <Route
-                        render={() => (
-                          <h2 style={{ textAlign: 'center' }}>
-                            404 Page Not Found
-                          </h2>
-                        )}
-                      />
-                    </Switch>
+                    <BooksContextProvider>
+                      <Switch>
+                        <Route path='/' exact component={Dashboard} />
+                        <Route path='/tracker' exact component={Tabs} />
+                        <Route
+                          render={() => (
+                            <h2 style={{ textAlign: 'center' }}>
+                              404 Page Not Found
+                            </h2>
+                          )}
+                        />
+                      </Switch>
+                    </BooksContextProvider>
                   </GoalsContextProvider>
                 </MoodsContextProvider>
               </AppointmentsContextProvider>

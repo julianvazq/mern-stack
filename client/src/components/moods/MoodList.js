@@ -8,10 +8,10 @@ import {
   Badge
 } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { MoodsContext } from '../../contexts/MoodsContext';
+import { MoodsContext } from './MoodsContext';
 import DelayedSpinner from '../DelayedSpinner';
 import EmptyListMessage from '../EmpyListMessage';
-import MoodModal from '../modals/MoodModal';
+import MoodModal from './MoodModal';
 
 const MoodList = () => {
   const {
