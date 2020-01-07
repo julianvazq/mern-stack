@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, Fragment } from 'react';
 import { CardDeck } from 'reactstrap';
 import CustomCard from './CustomCard';
 import { GroceryContext } from '../../contexts/GroceryContext';
 import { AppointmentsContext } from '../../contexts/AppointmentsContext';
 import { MoodsContext } from '../../contexts/MoodsContext';
+import { GoalsContext } from '../../contexts/GoalsContext';
 
 const Dashboard = () => {
   const { isLoading: groceryLoading, items, deleteItem } = useContext(
@@ -15,6 +16,9 @@ const Dashboard = () => {
   const { isLoading: moodsLoading, moods, deleteMood } = useContext(
     MoodsContext
   );
+  const { isLoading: goalsLoading, goals, deleteGoal } = useContext(
+    GoalsContext
+  );
 
   return (
     <CardDeck>
@@ -24,6 +28,7 @@ const Dashboard = () => {
         isLoading={groceryLoading}
         listItems={items}
         delete={deleteItem}
+        tab='1'
       />
       <CustomCard
         title='Appointments'
@@ -31,6 +36,7 @@ const Dashboard = () => {
         isLoading={apptLoading}
         listItems={appointments}
         delete={deleteAppt}
+        tab='2'
       />
       <CustomCard
         title='Moods'
@@ -38,9 +44,33 @@ const Dashboard = () => {
         isLoading={moodsLoading}
         listItems={moods}
         delete={deleteMood}
+        tab='3'
+      />
+      <CustomCard
+        title='Goals'
+        imgPath={require('../../images/goals1.jpg')}
+        isLoading={goalsLoading}
+        listItems={goals}
+        delete={deleteGoal}
+        tab='4'
+      />
+      <CustomCard
+        title='Goals'
+        imgPath={require('../../images/goals1.jpg')}
+        isLoading={goalsLoading}
+        listItems={goals}
+        delete={deleteGoal}
+        tab='4'
+      />
+      <CustomCard
+        title='Goals'
+        imgPath={require('../../images/goals1.jpg')}
+        isLoading={goalsLoading}
+        listItems={goals}
+        delete={deleteGoal}
+        tab='4'
       />
     </CardDeck>
-    // <CardDeck style={{ marginTop: '1.5rem' }}></CardDeck>
   );
 };
 

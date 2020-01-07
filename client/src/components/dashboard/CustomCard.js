@@ -24,16 +24,6 @@ const CustomCard = props => {
   const titleLowerCase = title.toLowerCase();
   let countItemsShowing = 0;
 
-  const handleClick = () => {
-    if (titleLowerCase === 'appointments') {
-      toggleTab('2');
-    } else if (titleLowerCase === 'moods') {
-      toggleTab('3');
-    } else {
-      toggleTab('1');
-    }
-  };
-
   return (
     <Card>
       <CardHeader
@@ -128,7 +118,7 @@ const CustomCard = props => {
         </ListGroup>
       </CardBody>
       <Button
-        onClick={handleClick}
+        onClick={() => toggleTab(props.tab)}
         tag={Link}
         to='/tracker'
         style={{ width: '100%' }}

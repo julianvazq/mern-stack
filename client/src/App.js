@@ -6,6 +6,7 @@ import ActiveTabContextProvider from './contexts/ActiveTabContext';
 import GroceryContextProvider from './contexts/GroceryContext';
 import AppointmentsContextProvider from './contexts/AppointmentsContext';
 import MoodsContextProvider from './contexts/MoodsContext';
+import GoalsContextProvider from './contexts/GoalsContext';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -29,17 +30,19 @@ function App() {
             <GroceryContextProvider>
               <AppointmentsContextProvider>
                 <MoodsContextProvider>
-                  <Switch>
-                    <Route path='/' exact component={Dashboard} />
-                    <Route path='/tracker' exact component={Tabs} />
-                    <Route
-                      render={() => (
-                        <h2 style={{ textAlign: 'center' }}>
-                          404 Page Not Found
-                        </h2>
-                      )}
-                    />
-                  </Switch>
+                  <GoalsContextProvider>
+                    <Switch>
+                      <Route path='/' exact component={Dashboard} />
+                      <Route path='/tracker' exact component={Tabs} />
+                      <Route
+                        render={() => (
+                          <h2 style={{ textAlign: 'center' }}>
+                            404 Page Not Found
+                          </h2>
+                        )}
+                      />
+                    </Switch>
+                  </GoalsContextProvider>
                 </MoodsContextProvider>
               </AppointmentsContextProvider>
             </GroceryContextProvider>

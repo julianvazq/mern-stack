@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const items = require('./routes/api/items');
 const appointments = require('./routes/api/appointments');
 const moods = require('./routes/api/moods');
+const goals = require('./routes/api/goals');
 
 const app = express();
 
@@ -23,6 +24,7 @@ mongoose
 app.use('/api/items', items);
 app.use('/api/appointments', appointments);
 app.use('/api/moods', moods);
+app.use('/api/goals', goals);
 
 const port = process.env.PORT || 5000;
 
