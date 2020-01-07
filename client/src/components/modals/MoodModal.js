@@ -80,7 +80,9 @@ const MoodModal = ({
                   5
                 </Button>
               </ButtonGroup>
-              <FormText>Required</FormText>
+              <FormText className={!mood ? 'required-text-form' : ''}>
+                Required
+              </FormText>
               <FormGroup />
               <FormGroup>
                 <Label for='thought'>Thoughts</Label>
@@ -96,7 +98,12 @@ const MoodModal = ({
                 />
                 <FormText>Optional</FormText>
               </FormGroup>
-              <Button color='dark' style={{ marginTop: '2rem' }} block>
+              <Button
+                disabled={!mood}
+                color='dark'
+                style={{ marginTop: '2rem' }}
+                block
+              >
                 {addOrUpdate} Mood
               </Button>
             </FormGroup>

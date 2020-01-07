@@ -14,7 +14,6 @@ import EmptyListMessage from '../EmpyListMessage';
 import MoodModal from '../modals/MoodModal';
 
 const MoodList = () => {
-  // Get items from ShoppingContext
   const {
     moods,
     deleteMood,
