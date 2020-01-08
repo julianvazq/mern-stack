@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require('path');
 
 const items = require('./routes/api/items');
 const appointments = require('./routes/api/appointments');
@@ -12,6 +13,7 @@ const app = express();
 
 // Middleware
 app.use(express.json());
+app.use(express.static(`${__dirname}/client/build`));
 
 // DB Config
 const db = require('./config/keys').mongoURI;
@@ -29,6 +31,9 @@ app.use('/api/moods', moods);
 app.use('/api/goals', goals);
 app.use('/api/books', books);
 app.use('/api/movies', movies);
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../mern-stack/client/build/index.html'));
+});
 
 const port = process.env.PORT || 5000;
 
