@@ -43,7 +43,7 @@ ul .nav .nav-tabs {
   line-height: 1;
   margin-right: 0.5rem;
   height: 60%;
-  top: 11.5px;
+  top: 11px;
   right: 0;
 }
 
@@ -81,7 +81,7 @@ ul .nav .nav-tabs {
 
 @media only screen and (max-width: 600px) {
   .badge-container {
-    width: 100px;
+    width: 130px;
   }
 
   .badge-container span {
@@ -165,6 +165,10 @@ ul .nav .nav-tabs {
   .card {
     width: 90% !important;
   }
+}
+
+.card img {
+  filter: saturate(70%);
 }
 
 .card-body {

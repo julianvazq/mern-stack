@@ -72,23 +72,29 @@ const MovieList = () => {
           <TransitionGroup className='shopping-list'>
             {movies.map(({ _id, title, genre }) => (
               <CSSTransition key={_id} timeout={400} classNames='fade'>
-                <ListGroupItem color='warning'>
+                <ListGroupItem
+                  color='warning'
+                  className='list-group-item__inline'
+                >
                   <Button
-                    className='remove-btn '
+                    className='remove-btn remove-btn__inline'
                     color='danger'
                     size='sm'
                     onClick={() => deleteMovie(_id)}
                   >
                     &times;
                   </Button>
-                  {title}
-                  <div className='badge-container' style={{ top: '10px' }}>
-                    <Badge color='warning' className='list-item-badge'>
-                      {genre && `Genre: ${genre}`}
+                  <p className='long-text-container'>{title}</p>
+                  <div className='badge-container'>
+                    <Badge
+                      color='warning'
+                      className='list-item-badge list-item-badge__inline'
+                    >
+                      {genre}
                     </Badge>
                   </div>
                   <Button
-                    className='list-item-btn'
+                    className='list-item-btn list-item-btn__inline'
                     color='secondary'
                     size='sm'
                     onClick={() => editMovie(_id, title, genre)}

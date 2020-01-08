@@ -72,7 +72,7 @@ const Dashboard = () => {
       />
       <CustomCard
         title='Movies'
-        imgPath={require('../../images/books.jpg')}
+        imgPath={require('../../images/movies.jpg')}
         isLoading={moviesLoading}
         listItems={movies}
         delete={deleteMovie}

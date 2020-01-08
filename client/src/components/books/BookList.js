@@ -64,7 +64,10 @@ const BookList = () => {
           <TransitionGroup className='shopping-list'>
             {books.map(({ _id, title, author }) => (
               <CSSTransition key={_id} timeout={400} classNames='fade'>
-                <ListGroupItem color='info' className='list-group-item__inline'>
+                <ListGroupItem
+                  color='secondary'
+                  className='list-group-item__inline'
+                >
                   <Button
                     className='remove-btn remove-btn__inline'
                     color='danger'

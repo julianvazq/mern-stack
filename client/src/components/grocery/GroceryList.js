@@ -72,23 +72,29 @@ const GroceryList = () => {
           <TransitionGroup className='shopping-list'>
             {items.map(({ _id, name, quantity }) => (
               <CSSTransition key={_id} timeout={500} classNames='fade'>
-                <ListGroupItem color='success'>
+                <ListGroupItem
+                  color='success'
+                  className='list-group-item__inline'
+                >
                   <Button
-                    className='remove-btn'
+                    className='remove-btn remove-btn__inline'
                     color='danger'
                     size='sm'
                     onClick={() => deleteItem(_id)}
                   >
                     &times;
                   </Button>
-                  {name}
-                  <div className='badge-container' style={{ top: '10px' }}>
-                    <Badge color='success' className='list-item-badge'>
+                  <p className='long-text-container'>{name}</p>
+                  <div className='badge-container'>
+                    <Badge
+                      color='success'
+                      className='list-item-badge list-item-badge__inline'
+                    >
                       Quantity: {quantity}
                     </Badge>
                   </div>
                   <Button
-                    className='list-item-btn'
+                    className='list-item-btn list-item-btn__inline'
                     color='secondary'
                     size='sm'
                     onClick={() => editItem(_id, name, quantity)}
