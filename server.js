@@ -24,6 +24,7 @@ mongoose
   .then(() => console.log('MongoDB Connected...'))
   .catch(err => console.log(err));
 
+console.log(path.join(__dirname, '/client/build/index.html'));
 // Use Routes
 app.use('/api/items', items);
 app.use('/api/appointments', appointments);
@@ -32,7 +33,7 @@ app.use('/api/goals', goals);
 app.use('/api/books', books);
 app.use('/api/movies', movies);
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../mern-stack/client/build/index.html'));
+  res.sendFile(path.join(__dirname, '/client/build/index.html'));
 });
 
 const port = process.env.PORT || 5000;
