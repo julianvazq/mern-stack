@@ -22,7 +22,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "homepage": ".",
+  "homepage": "67.205.157.89",
   "proxy": "http://localhost:5000",
   "eslintConfig": {
     "extends": [
