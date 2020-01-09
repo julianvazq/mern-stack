@@ -70,6 +70,7 @@ ul .nav .nav-tabs {
 .list-item-btn {
   font-weight: bold;
   position: absolute;
+  width: 43px;
   right: 13px;
   top: 37px;
 }
