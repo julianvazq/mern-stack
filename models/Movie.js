@@ -10,7 +10,8 @@ const MovieSchema = new Schema({
   genre: {
     type: String,
     default: ''
-  }
+  },
+  createdAt: { type: Date, expires: 600, default: Date.now }
 });
 
 // Compile and export schema

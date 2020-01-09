@@ -20,11 +20,14 @@ const db = require('./config/keys').mongoURI;
 
 // Connect to Mongo
 mongoose
-  .connect(db, { useUnifiedTopology: true, useNewUrlParser: true })
+  .connect(db, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useCreateIndex: true
+  })
   .then(() => console.log('MongoDB Connected...'))
   .catch(err => console.log(err));
 
-console.log(path.join(__dirname, '/client/build/index.html'));
 // Use Routes
 app.use('/api/items', items);
 app.use('/api/appointments', appointments);

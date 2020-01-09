@@ -14,7 +14,8 @@ const MoodSchema = new Schema({
   date: {
     type: Date,
     default: Date.now
-  }
+  },
+  createdAt: { type: Date, expires: 600, default: Date.now }
 });
 
 // Compile and export schema

@@ -10,7 +10,8 @@ const BookSchema = new Schema({
   author: {
     type: String,
     default: ''
-  }
+  },
+  createdAt: { type: Date, expires: 600, default: Date.now }
 });
 
 // Compile and export schema

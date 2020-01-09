@@ -13,8 +13,15 @@ const ActiveTabContextProvider = props => {
   };
 
   useEffect(() => {
+    console.log('rendering tab context');
+
     const storedActiveTab = localStorage.getItem('activeTab');
-    setActiveTab(storedActiveTab);
+    if (!storedActiveTab) {
+      setActiveTab('1');
+      console.log('set active tab to 1');
+    } else {
+      setActiveTab(storedActiveTab);
+    }
   }, []);
 
   return (
