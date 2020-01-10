@@ -16,7 +16,7 @@ app.use(express.json());
 // app.use(express.static(`${__dirname}/client/build`));
 
 // Heroku DB setup
-const db = process.ENV.mongoURI;
+const db = process.env.mongoURI;
 
 // DB Config
 // if (process.env.NODE_ENV === 'production') {
