@@ -34,7 +34,6 @@ const Tabs = () => {
       >
         <Nav tabs style={{ marginBottom: '1.5rem' }}>
           <NavItem>
-            {console.log(activeTab)}
             <NavLink
               className={classnames({
                 active: activeTab === '1'
