@@ -15,12 +15,12 @@ const app = express();
 app.use(express.json());
 // app.use(express.static(`${__dirname}/client/build`));
 
+// Heroku DB setup
+const db = process.ENV_mongoURI;
+
 // DB Config
-if (process.env.NODE_ENV === 'production') {
-  const db = process.ENV_mongoURI;
-} else {
-  const db = require('./config/keys').mongoURI;
-}
+// if (process.env.NODE_ENV === 'production') {
+//   const db = require('./config/keys').mongoURI;
 
 // Connect to Mongo
 mongoose
