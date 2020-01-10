@@ -17,6 +17,9 @@ app.use(express.json());
 
 // DB Config
 const db = require('./config/keys').mongoURI;
+if (process.env.NODE_ENV === 'production') {
+  const db = mongoURI;
+}
 
 // Connect to Mongo
 mongoose
