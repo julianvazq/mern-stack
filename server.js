@@ -13,9 +13,9 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-// app.use(express.static(`${__dirname}/client/build`));
+app.use(express.static(`${__dirname}/client/build`));
 
-// Heroku DB setup
+// Production DB setup
 let db = process.env.mongoURI;
 
 try {
@@ -23,10 +23,6 @@ try {
 } catch (e) {
   console.log("We're in production.");
 }
-
-// DB Config
-// if (process.env.NODE_ENV === 'production') {
-//   const db = require('./config/keys').mongoURI;
 
 // Connect to Mongo
 mongoose
@@ -45,17 +41,17 @@ app.use('/api/moods', moods);
 app.use('/api/goals', goals);
 app.use('/api/books', books);
 app.use('/api/movies', movies);
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, '/client/build/index.html'));
-// });
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '/client/build/index.html'));
+});
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(express.static('client/build'));
 
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-  });
-}
+//   app.get('*', (req, res) => {
+//     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+//   });
+// }
 
 const port = process.env.PORT || 5000;
 
