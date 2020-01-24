@@ -47,7 +47,7 @@ These include:
 
   
 
-### To dos
+### Todos
 
 - Add authentication
 
